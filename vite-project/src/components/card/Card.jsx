@@ -1,9 +1,19 @@
-const Card =({category, title, date}) => {
+const Card =({topic, title, date}) => {
+
+    const colorIndicator = {
+        "Web Design": "_orange",
+        "Copywriting": "_purple",
+        "Research": "_green",
+    }
+
+    const colorClass = colorIndicator[topic] || "";
+    console.log(colorClass)
+
     return (<div className="cards__item">
             <div className="cards__card card">
                 <div className="card__group">
-                    <div className="card__theme _orange">
-                        <p className="_orange">{category}</p>
+                    <div className={`card__theme ${colorClass}`}>
+                        <p className={colorClass}>{topic}</p>
                     </div>
                     <a href="#popBrowse" target="_self">
                         <div className="card__btn">
