@@ -4,8 +4,11 @@ import PopNewCard from "./components/popNewCard/popNewCard.jsx";
 import PopBrowse from "./components/popBrowse/popBrowse.jsx";
 import Header from "./components/header/header.jsx";
 import Main from "./components/Main/Main.jsx";
+import {cardList} from "./data.js";
+import {useState} from "react";
 
 function App() {
+    const [cards, setCards] = useState(cardList);
   return (    <div className="wrapper">
     {/* <div className="pop-exit" id="popExit">
       <div className="pop-exit__container">
@@ -25,7 +28,7 @@ function App() {
 <PopExit />
 <PopNewCard/>
     <PopBrowse/>
-    <Header/>
+    <Header setCards={setCards} cards ={cards}/>
     {/*<main className="main">
       <div className="container">
 
@@ -478,7 +481,7 @@ function App() {
         </div>
       </div>
     </div>*/}
-    < Main/>
+    < Main cardList={cards}/>
   </div>
   );
 }
