@@ -1,13 +1,23 @@
-const PopUser = () => {
-  return (<div className="header__pop-user-set pop-user-set">
-    <p className="pop-user-set__name">Ivan Ivanov</p>
-    <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
-    <div className="pop-user-set__theme">
-      <p>Темная тема</p>
-      <input type="checkbox" className="checkbox" name="checkbox"/>
-    </div>
-    <button type="button" className="_hover03"><a href="#popExit">Выйти</a></button>
-  </div>);
+import {
+    HeaderPopUser,
+    PopUserButton, PopUserCheckbox,
+    PopUserMail,
+    PopUserName,
+    PopUserSetTheme,
+    PopUserTheme
+} from "./PopUser.styled.js";
+
+const PopUser = ({setDarkTheme, darkTheme}) => {
+    return (
+        <HeaderPopUser>
+            <PopUserName>Ivan Ivanov</PopUserName>
+            <PopUserMail>ivan.ivanov@gmail.com</PopUserMail>
+            <PopUserSetTheme>
+                <PopUserTheme>{darkTheme ? 'Темная' : 'Светлая'} тема</PopUserTheme>
+                <PopUserCheckbox type="checkbox" className="checkbox" name="checkbox" onChange={() => setDarkTheme(!darkTheme)}/>
+            </PopUserSetTheme>
+            <PopUserButton type="button" className="_hover03">Выйти</PopUserButton>
+        </HeaderPopUser>);
 }
 
 export default PopUser;
