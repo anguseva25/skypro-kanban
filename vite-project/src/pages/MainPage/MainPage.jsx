@@ -34,9 +34,7 @@ export const MainPage = ({darkTheme, setDarkTheme}) => {
             <PopExit/>
             <PopNewCard/>
             <PopBrowse/>
-            <Header setDarkTheme={setDarkTheme} darkTheme={darkTheme} setCards={setCards} addNewCard={
-                <button className="header__btn-main-new _hover01" onClick={addNewCard}>
-                Создать новую задачу</button>}/>
+            <Header setDarkTheme={setDarkTheme} darkTheme={darkTheme} setCards={setCards} addNewCard={addNewCard}/>
             <Main isLoading={isLoading} cardList={cards}/>
         </Wrapper>)
 }
