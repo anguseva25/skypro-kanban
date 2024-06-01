@@ -10,10 +10,6 @@ const Header = ({setDarkTheme, darkTheme, setCards, cards}) => {
         setOpen((prev) => !prev);
     };
 
-    {/*useEffect(() => {
-        console.log(isOpen)
-    }, [isOpen]);*/}
-
     const addNewCard = () => {
         const newCard = {
             id: Date.now(),

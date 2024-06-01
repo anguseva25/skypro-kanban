@@ -4,7 +4,7 @@ import {GlobalStyle} from "./global.styled.js";
 import {ThemeProvider} from "styled-components";
 import * as Themes from "./themeStyle.styled.js";
 import {Route, Routes} from "react-router-dom";
-import {MainPage} from "./pages/MainPage/MainPage.js";
+import {MainPage} from "./pages/MainPage/MainPage.jsx";
 
 function App() {
     const [darkTheme, setDarkTheme] = useState(false);
