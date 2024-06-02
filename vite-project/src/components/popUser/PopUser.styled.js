@@ -42,6 +42,11 @@ export const PopUserButton = styled.button`
     border: 1px solid #565EEF;
 `
 
+{/*const buttonExit = document.querySelector('.PopUserButton');
+buttonExit.addEventListener('click', () => {
+    console.log('click');
+});*/}
+
 export const PopUserMail = styled.p`
     color: #94A6BE;
     font-size: 14px;

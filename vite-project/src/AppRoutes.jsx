@@ -6,6 +6,8 @@ import {paths} from "./routesPath.js";
 import PrivateRoute from "./components/PrivateRoute.jsx";
 import {useState} from "react";
 import {NotFoundPage} from "./pages/unfoundPage/NotFoundPage.jsx";
+import {PopExitPage} from "./pages/Popups/PopExit/PopExitPage.jsx";
+import PopBrowse from "./components/popBrowse/PopBrowse.jsx";
 
 export const AppRoutes = (darkTheme, setDarkTheme) => {
     const [isAuth, setIsAuth] = useState(true); {/*поменять на false после API*/}
@@ -13,6 +15,8 @@ export const AppRoutes = (darkTheme, setDarkTheme) => {
     return (<Routes>
             <Route element={<PrivateRoute isAuth={isAuth} />}>
                 <Route path={paths.MAIN} element={<MainPage darkTheme={darkTheme} setDarkTheme={setDarkTheme}/>}></Route>
+                <Route path={paths.EXIT} element={<PopExitPage/>}/>
+                <Route path={paths.CARD_ID} element={<PopBrowse/>}/>
             </Route>
             <Route path={paths.LOGIN} element={<LoginPage setIsAuth={setIsAuth}/>}/>
             <Route path={paths.REGISTER} element={<RegisterPage/>}/>

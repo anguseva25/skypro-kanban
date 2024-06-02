@@ -3,9 +3,10 @@ import {cardList} from "../../data.js";
 import {Wrapper} from "../../global.styled.js";
 import PopExit from "../../components/popExit/popExit.jsx";
 import PopNewCard from "../../components/popNewCard/popNewCard.jsx";
-import PopBrowse from "../../components/popBrowse/popBrowse.jsx";
+import PopBrowse from "../../components/popBrowse/PopBrowse.jsx";
 import Header from "../../components/header/header.jsx";
 import Main from "../../components/Main/Main.jsx";
+import {Outlet} from "react-router-dom";
 
 export const MainPage = ({darkTheme, setDarkTheme}) => {
     const [isLoading, setLoading] = useState(true);
@@ -31,10 +32,10 @@ export const MainPage = ({darkTheme, setDarkTheme}) => {
 
     return (
         <Wrapper>
-            <PopExit/>
             <PopNewCard/>
             <PopBrowse/>
             <Header setDarkTheme={setDarkTheme} darkTheme={darkTheme} setCards={setCards} addNewCard={addNewCard}/>
             <Main isLoading={isLoading} cardList={cards}/>
+            <Outlet/>
         </Wrapper>)
 }

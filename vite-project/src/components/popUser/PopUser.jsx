@@ -6,6 +6,8 @@ import {
     PopUserSetTheme,
     PopUserTheme
 } from "./PopUser.styled.js";
+import {Link} from "react-router-dom";
+import {paths} from "../../routesPath.js";
 
 const PopUser = ({setDarkTheme, darkTheme}) => {
     return (
@@ -16,7 +18,7 @@ const PopUser = ({setDarkTheme, darkTheme}) => {
                 <PopUserTheme>{darkTheme ? 'Темная' : 'Светлая'} тема</PopUserTheme>
                 <PopUserCheckbox type="checkbox" className="checkbox" name="checkbox" onChange={() => setDarkTheme(!darkTheme)}/>
             </PopUserSetTheme>
-            <PopUserButton type="button" className="_hover03">Выйти</PopUserButton>
+            <PopUserButton type="button" className="_hover03"><Link to={paths.EXIT}> Выйти </Link> </PopUserButton>
         </HeaderPopUser>);
 }
 

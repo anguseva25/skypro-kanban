@@ -1,5 +1,7 @@
 import {Button} from "../shared.styled.js";
 import {ExitHeader, PopExitBlock, PopExitCnt, PopExitFormGroup, PopExitTitle} from "./PopExit.js";
+import {Link} from "react-router-dom";
+import {paths} from "../../routesPath.js";
 
 
 const PopExit = () => {
@@ -12,8 +14,8 @@ const PopExit = () => {
                     </PopExitTitle>
                     <form className="pop-exit__form" id="formExit" action="#">
                         <PopExitFormGroup>
-                            <Button $primary>Да, выйти</Button>
-                            <Button>Нет, остаться</Button>
+                            <Button $primary ><Link to={paths.LOGIN}> Да, выйти </Link></Button>
+                            <Button><Link to={paths.MAIN}>Нет, остаться</Link></Button>
                             {/*<button className="pop-exit__exit-yes _hover01" id="exitYes"><a href="modal/signin.html">Да, выйти</a> </button>*/}
                             {/*<button className="pop-exit__exit-no _hover03" id="exitNo"><a href="main.html">Нет, остаться</a> </button>*/}
                         </PopExitFormGroup>
