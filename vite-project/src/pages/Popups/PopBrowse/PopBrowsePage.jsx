@@ -1,6 +1,13 @@
-import PopBrowse from "../../../components/popBrowse/PopBrowse.jsx";
+import PopBrowse from "../../../components/popBrowse/PopBrowse";
+// import {useParams} from "react-router-dom";
+
 
 export const PopBrowsePage = () => {
-    return
-    <PopBrowse/>
+    // const { id } = useParams()
+
+    // console.log(id)
+
+    return (
+        <PopBrowse />
+    )
 }

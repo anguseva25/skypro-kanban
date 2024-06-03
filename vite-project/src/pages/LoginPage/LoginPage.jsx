@@ -1,6 +1,7 @@
-import {Wrapper} from "../../global.styled.js";
+import {Wrapper} from "../../global.styled";
 import {Link, useNavigate} from "react-router-dom";
-import {paths} from "../../routesPath.js";
+import {paths} from "../../routesPath";
+
 
 export const LoginPage = ({setIsAuth}) => {
     const navigate = useNavigate();
@@ -23,7 +24,8 @@ export const LoginPage = ({setIsAuth}) => {
                                    placeholder="Эл. почта"/>
                             <input className="modal__input" type="password" name="password" id="formpassword"
                                    placeholder="Пароль"/>
-                            <button onClick={loginHandler} className="modal__btn-enter _hover01" id="btnEnter">Войти
+                            <button onClick={loginHandler} className="modal__btn-enter _hover01" id="btnEnter">
+                                Войти
                             </button>
                             <div className="modal__form-group">
                                 <p>Нужно зарегистрироваться?</p>

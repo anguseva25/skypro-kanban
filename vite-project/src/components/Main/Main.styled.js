@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+
 export  const MainStyleTotal = styled.main`
     width: 100%;
     background-color: ${({theme}) => theme.body};

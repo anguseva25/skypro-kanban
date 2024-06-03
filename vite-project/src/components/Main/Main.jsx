@@ -1,8 +1,9 @@
-import Column from '../column/Column.jsx';
+import Column from '../column/Column';
 import {useEffect, useState} from "react";
-import Loader from "../Loader/Loader.jsx";
-import {MainBlock, MainContent, MainStyleTotal} from "./Main.styled.js"
-import {Container} from "../shared.styled.js";
+import Loader from "../Loader/Loader";
+import {MainBlock, MainContent, MainStyleTotal} from "./Main.styled"
+import {Container} from "../shared.styled";
+
 
 const statusList = [
     "Без статуса",

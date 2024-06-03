@@ -1,4 +1,5 @@
-import {LoaderText, LoaderWrapper, Loading} from "./Loader.styled.js";
+import {LoaderText, LoaderWrapper, Loading} from "./Loader.styled";
+
 
 const Loader = () => {
     return (

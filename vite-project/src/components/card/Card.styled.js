@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+
 export const CardContainer = styled.div`
     width: 220px;
     height: 130px;
@@ -118,4 +119,3 @@ export const CardDate = styled.div`
         letter-spacing: 0.2px;
     }
 `
-

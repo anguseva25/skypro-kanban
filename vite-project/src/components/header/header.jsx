@@ -1,7 +1,8 @@
-import PopUser from "../popUser/PopUser.jsx";
+import PopUser from "../popUser/PopUser";
 import {useState} from "react";
-import * as S from "./Header.styled.js"
-import {Container} from "../shared.styled.js";
+import * as S from "./Header.styled"
+import {Container} from "../shared.styled";
+
 
 const Header = ({setDarkTheme, darkTheme, addNewCard}) => {
     const [isOpen, setOpen] = useState(false);
@@ -22,7 +23,8 @@ const Header = ({setDarkTheme, darkTheme, addNewCard}) => {
                 </S.HeaderLogoDark>
                 <S.HeaderNav>
                     <button className="header__btn-main-new _hover01" onClick={addNewCard}>
-                        Создать новую задачу</button>
+                        <a href="#popNewCard">Создать новую задачу</a>
+                    </button>
                     <S.HeaderUser className="_hover02" onClick={manualOpen}>Ivan Ivanov</S.HeaderUser>
                     {isOpen && (<PopUser setDarkTheme={setDarkTheme} darkTheme={darkTheme} />)}
                 </S.HeaderNav>

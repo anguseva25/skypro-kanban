@@ -1,6 +1,7 @@
-import {Wrapper} from "../../global.styled.js";
+import {Wrapper} from "../../global.styled";
 import {Link} from "react-router-dom";
-import {paths} from "../../routesPath.js";
+import {paths} from "../../routesPath";
+
 
 export const RegisterPage = () => {
     return (

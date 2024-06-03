@@ -1,7 +1,8 @@
-import PopUser from "../../../components/popUser/PopUser.jsx";
+import PopExit from "../../../components/popExit/popExit";
+
 
 export const PopExitPage = () => {
     return (
-        <PopUser/>
+        <PopExit/>
     )
 }

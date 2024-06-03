@@ -1,7 +1,7 @@
-import {Button} from "../shared.styled.js";
-import {ExitHeader, PopExitBlock, PopExitCnt, PopExitFormGroup, PopExitTitle} from "./PopExit.js";
+import {Button} from "../shared.styled";
+import {ExitHeader, PopExitBlock, PopExitCnt, PopExitFormGroup, PopExitTitle} from "./PopExit";
 import {Link} from "react-router-dom";
-import {paths} from "../../routesPath.js";
+import {paths} from "../../routesPath";
 
 
 const PopExit = () => {

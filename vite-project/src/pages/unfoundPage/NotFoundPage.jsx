@@ -1,7 +1,8 @@
-import {Wrapper} from "../../global.styled.js";
-import {NonFoundPage} from "./nonFoundPage.js";
+import {Wrapper} from "../../global.styled";
+import {NonFoundPage} from "./nonFoundPage";
 import {Link} from "react-router-dom";
-import {paths} from "../../routesPath.js";
+import {paths} from "../../routesPath";
+
 
 export const NotFoundPage = () => {
     return (

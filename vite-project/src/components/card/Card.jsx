@@ -1,10 +1,9 @@
-
-import * as S from './Card.styled.js'
-import {CardBtn, CardBtnDiv, CardContent, CardDate, CardGroup, CardsItem} from "./Card.styled.js";
+import * as S from './Card.styled'
+import {CardBtn, CardBtnDiv, CardContent, CardDate, CardGroup, CardsItem} from "./Card.styled";
 import {Link} from "react-router-dom";
 
 
-const Card =({topic, title, date}) => {
+const Card =({cardId, topic, title, date}) => {
     const colorIndicator = {
         "Web Design": "orange",
         "Copywriting": "purple",
@@ -19,9 +18,9 @@ const Card =({topic, title, date}) => {
             <S.CardContainer>
                 <CardGroup>
                     <S.CardTopic $color = {colorIndicator[topic]}>
-                        <S.TopicText>{topic}</S.TopicText>
+                        <S.TopicText>{topic} {cardId}</S.TopicText>
                     </S.CardTopic>
-                    <Link to={'/card/'}>
+                    <Link to={`/card/${cardId}`}>
                         <CardBtn>
                             <CardBtnDiv></CardBtnDiv>
                             <CardBtnDiv></CardBtnDiv>

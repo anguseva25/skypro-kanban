@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+
 export const ExitHeader = styled.div`
 {/*display: none;*/}
     width: 100%;
@@ -51,6 +52,3 @@ export const PopExitFormGroup = styled.div`
     align-items: center;
     justify-content: space-between;
 `;
-
-
-

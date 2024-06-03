@@ -1,5 +1,6 @@
 import styled, {css} from "styled-components";
 
+
 export const CalendarContainer = styled.div`
     width: 182px;
     margin-bottom: 20px;
@@ -101,8 +102,3 @@ export const DateControl = styled.span`
     font-size: 10px;
     line-height: 1;
 `;
-
-
-
-
-

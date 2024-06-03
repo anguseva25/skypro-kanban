@@ -1,4 +1,5 @@
-import Calendar from "../calendar/Calendar.jsx";
+import Calendar from "../calendar/Calendar";
+
 
 const PopNewCard = () => {
     return (
@@ -122,4 +123,5 @@ const PopNewCard = () => {
         </div>
     );
 };
+
 export default PopNewCard;

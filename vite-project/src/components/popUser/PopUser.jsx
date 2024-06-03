@@ -1,25 +1,27 @@
-import {
-    HeaderPopUser,
-    PopUserButton, PopUserCheckbox,
-    PopUserMail,
-    PopUserName,
-    PopUserSetTheme,
-    PopUserTheme
-} from "./PopUser.styled.js";
-import {Link} from "react-router-dom";
-import {paths} from "../../routesPath.js";
+import * as S from "./PopUser.styled";
+import {useNavigate} from "react-router-dom";
+import {paths} from "../../routesPath";
+
 
 const PopUser = ({setDarkTheme, darkTheme}) => {
+    const navigate = useNavigate();
+
+    // function toggleTheme(event) {
+    //     console.log(darkTheme)
+    //     console.log(setDarkTheme)
+    //     /*onChange = {() => setDarkTheme(!darkTheme)}*/
+    // }
+
     return (
-        <HeaderPopUser>
-            <PopUserName>Ivan Ivanov</PopUserName>
-            <PopUserMail>ivan.ivanov@gmail.com</PopUserMail>
-            <PopUserSetTheme>
-                <PopUserTheme>{darkTheme ? 'Темная' : 'Светлая'} тема</PopUserTheme>
-                <PopUserCheckbox type="checkbox" className="checkbox" name="checkbox" onChange={() => setDarkTheme(!darkTheme)}/>
-            </PopUserSetTheme>
-            <PopUserButton type="button" className="_hover03"><Link to={paths.EXIT}> Выйти </Link> </PopUserButton>
-        </HeaderPopUser>);
+        <S.HeaderPopUser id={"pop-user"}>
+            <S.PopUserName>Ivan Ivanov</S.PopUserName>
+            <S.PopUserMail>ivan.ivanov@gmail.com</S.PopUserMail>
+            <S.PopUserSetTheme>
+                <S.PopUserTheme>{darkTheme ? 'Темная' : 'Светлая'} тема</S.PopUserTheme>
+                <S.PopUserCheckbox type="checkbox" className="checkbox" name="checkbox" onChange={() => setDarkTheme(!darkTheme)}/>
+            </S.PopUserSetTheme>
+            <S.PopUserButton onClick={() => navigate(paths.EXIT)}> Выйти </S.PopUserButton>
+        </S.HeaderPopUser>);
 }
 
 export default PopUser;

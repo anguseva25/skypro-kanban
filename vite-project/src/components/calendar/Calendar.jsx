@@ -6,7 +6,8 @@ import {
     CalendarHeader,
     CalendarMonth, CalendarPeriod,
     CalendarTtlSubttl, CalendrDateControl, DateControl, EachCalendarDay
-} from "./Calendar.styled.js";
+} from "./Calendar.styled";
+
 
 const DaysOfWeek =[
     'пн',
@@ -18,7 +19,7 @@ const DaysOfWeek =[
     'вс',
 ]
 
-const Calendar = () => {
+const Calendar = ({ selectedDate }) => {
     return (
         <CalendarContainer>
             <CalendarTtlSubttl>Даты</CalendarTtlSubttl>
@@ -88,7 +89,7 @@ const Calendar = () => {
                 </CalendarContent>
                 <input type="hidden" id="datepick_value" value="08.09.2023"/>
                 <CalendarPeriod>
-                    <CalendrDateControl>Срок исполнения: <DateControl>09.09.23</DateControl></CalendrDateControl>
+                    <CalendrDateControl>Срок исполнения: <DateControl>{selectedDate}</DateControl></CalendrDateControl>
                 </CalendarPeriod>
             </CalendarBlock>
         </CalendarContainer>

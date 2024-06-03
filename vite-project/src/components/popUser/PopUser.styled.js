@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import {darkTheme, lightTheme} from "../../themeStyle.styled.js";
+import {hover03} from "../shared.styled";
+
 
 export const HeaderPopUser = styled.div`
     display: block;
@@ -40,6 +41,8 @@ export const PopUserButton = styled.button`
     color: ${({theme}) => theme.darkStyle ? '#FFF' : '#565EEF'};
     border-radius: 4px;
     border: 1px solid #565EEF;
+
+    ${hover03}
 `
 
 {/*const buttonExit = document.querySelector('.PopUserButton');
@@ -77,10 +80,14 @@ export const PopUserCheckbox = styled.input`
         content: "";
         position: absolute;
         top: 1px;
-        left: ${({theme}) => theme.darkStyle ? '12px' : '1px'};
+        left: 1px;
         width: 11px;
         height: 11px;
         border-radius: 50%;
-        background-color: ${({theme}) => theme.darkStyle ? '#565EEF' : '#FFF'};
+        background-color: #94A6BE;
         transition: 0.5s;
+    }
+    &:checked::before {
+        left: 12px;
+    }
 `
