@@ -27,7 +27,7 @@ export const TopicText = styled.p`
     line-height: 10px;
 `;
 
-const colour = {
+export const colour = {
     orange: `background-color: #FFE4C2;
              color: #FF6D00;`,
     purple: `background-color: #E9D4FF;
