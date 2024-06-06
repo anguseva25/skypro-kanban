@@ -7,13 +7,13 @@ import {
     PopNewCardContainer,
     PopNewCardContent, PopNewCardFormBlock, PopNewCardFormNew,
     PopNewCardLink,
-    PopNewCardTitle, PopNewCardWrap
+    PopNewCardTitle, PopNewCardWrap, PopNewCardCommun
 } from "./PopNewCard.styled.js";
 
 
 const PopNewCard = () => {
     return (
-        <PopNewCard>
+        <PopNewCardCommun>
             <PopNewCardContainer>
                 <PopNewCardBlock>
                     <PopNewCardContent>
@@ -52,7 +52,7 @@ const PopNewCard = () => {
                     </PopNewCardContent>
                 </PopNewCardBlock>
             </PopNewCardContainer>
-        </PopNewCard>
+        </PopNewCardCommun>
     );
 };
 
