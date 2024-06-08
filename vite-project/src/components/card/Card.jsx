@@ -1,33 +1,38 @@
-const Card =({topic, title, date}) => {
+import * as S from './Card.styled'
+import {CardBtn, CardBtnDiv, CardContent, CardDate, CardGroup, CardsItem} from "./Card.styled";
+import {Link} from "react-router-dom";
 
+
+const Card =({cardId, topic, title, date}) => {
     const colorIndicator = {
-        "Web Design": "_orange",
-        "Copywriting": "_purple",
-        "Research": "_green",
+        "Web Design": "orange",
+        "Copywriting": "purple",
+        "Research": "green",
     }
 
     const colorClass = colorIndicator[topic] || "";
     console.log(colorClass)
 
-    return (<div className="cards__item">
-            <div className="cards__card card">
-                <div className="card__group">
-                    <div className={`card__theme ${colorClass}`}>
-                        <p className={colorClass}>{topic}</p>
-                    </div>
-                    <a href="#popBrowse" target="_self">
-                        <div className="card__btn">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                    </a>
-                </div>
-                <div className="card__content">
+    return (
+        <CardsItem>
+            <S.CardContainer>
+                <CardGroup>
+                    <S.CardTopic $color = {colorIndicator[topic]}>
+                        <S.TopicText>{topic} {cardId}</S.TopicText>
+                    </S.CardTopic>
+                    <Link to={`/card/${cardId}`}>
+                        <CardBtn>
+                            <CardBtnDiv></CardBtnDiv>
+                            <CardBtnDiv></CardBtnDiv>
+                            <CardBtnDiv></CardBtnDiv>
+                        </CardBtn>
+                    </Link>
+                </CardGroup>
+                <CardContent>
                     <a href="" target="_blank">
-                        <h3 className="card__title">{title}</h3>
+                        <S.CardsTopics>{title}</S.CardsTopics>
                     </a>
-                    <div className="card__date">
+                    <CardDate>
                         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13"
                              viewBox="0 0 13 13" fill="none">
                             <g clipPath="url(#clip0_1_415)">
@@ -46,10 +51,10 @@ const Card =({topic, title, date}) => {
                             </defs>
                         </svg>
                         <p>{date}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    </CardDate>
+                </CardContent>
+            </S.CardContainer>
+        </CardsItem>
     );
 }
 
