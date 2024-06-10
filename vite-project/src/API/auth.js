@@ -9,9 +9,9 @@ export const register = ({login, name, password}) => {
             password: password,
         })
     }).then(res =>{
-        if(res.status === 400){
-            throw new Error('Некорректные данные');
-        }
-        return res.json()
-    }).then(res =>res)
-    }
+            if (res.status === 400) throw new Error("Некорректные данные");
+            if (res.status === 500) throw new Error("ошибка на сервере");
+            if (res.status === 200)
+                return res.json();
+        });
+    };
