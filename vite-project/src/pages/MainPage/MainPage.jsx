@@ -5,6 +5,7 @@ import PopNewCard from "../../components/popNewCard/popNewCard";
 import Header from "../../components/header/header";
 import Main from "../../components/Main/Main";
 import {Outlet} from "react-router-dom";
+import {getCards} from "../../API/cardsAPI.js";
 
 
 export const MainPage = ({darkTheme, setDarkTheme}) => {
@@ -24,6 +25,10 @@ export const MainPage = ({darkTheme, setDarkTheme}) => {
     };
 
     useEffect(() => {
+        setLoading(false)
+        getCards().then(() => {
+
+        })
         setTimeout(() => {
             setLoading(false)
         }, 2000)

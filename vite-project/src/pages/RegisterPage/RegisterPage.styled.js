@@ -8,3 +8,11 @@ export const ContainerSignUp = styled.div`
     box-sizing: border-box;
     color: #000;
 `;
+
+export const AlertMsg = styled.p`
+    color: crimson;
+    font-size: 14px;
+    line-height: 21px;
+    font-weight: 500; 
+    
+`

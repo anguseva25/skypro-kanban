@@ -11,7 +11,7 @@ import {PopExitPage} from "./pages/Popups/PopExit/PopExitPage";
 
 
 export const AppRoutes = ({darkTheme, setDarkTheme}) => {
-    const [isAuth, setIsAuth] = useState(true); {/*поменять на false после API*/}
+    const [isAuth, setIsAuth] = useState(false); {/*поменять на false после API*/}
 
     return (<Routes>
             <Route element={<PrivateRoute isAuth={isAuth} />}>
