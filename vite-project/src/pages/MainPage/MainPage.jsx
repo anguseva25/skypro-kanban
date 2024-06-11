@@ -8,8 +8,9 @@ import {Outlet} from "react-router-dom";
 import {getCards} from "../../API/cardsAPI.js";
 
 
-export const MainPage = ({darkTheme, setDarkTheme}) => {
+export const MainPage = ({darkTheme, setDarkTheme, isAuth}) => {
     const [isLoading, setLoading] = useState(true);
+    const [errorMesg, setErrorMesg] = useState(false);
     const [cards, setCards] = useState(cardList);
 
     const addNewCard = () => {
@@ -25,9 +26,15 @@ export const MainPage = ({darkTheme, setDarkTheme}) => {
     };
 
     useEffect(() => {
-        setLoading(false)
-        getCards().then(() => {
+        setLoading(true)
 
+        getCards(isAuth.token).then((res) => {
+            setErrorMesg('')
+            setCards(res.tasks);
+        }).catch((err) => {
+            setErrorMesg(err.message)
+        }).finally(() => {
+            setLoading(false);
         })
         setTimeout(() => {
             setLoading(false)
@@ -38,8 +45,8 @@ export const MainPage = ({darkTheme, setDarkTheme}) => {
         <Wrapper>
             <PopNewCard/>
             {/*<PopBrowse/>*/}
-            <Header setDarkTheme={setDarkTheme} darkTheme={darkTheme} setCards={setCards} addNewCard={addNewCard}/>
-            <Main isLoading={isLoading} cardList={cards}/>
+            <Header isAuth={isAuth} setDarkTheme={setDarkTheme} darkTheme={darkTheme} setCards={setCards} addNewCard={addNewCard}/>
+            <Main errorMesg={errorMesg} isLoading={isLoading} cardList={cards}/>
             <Outlet/>
         </Wrapper>)
 }
