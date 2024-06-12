@@ -26,7 +26,7 @@ const Header = ({setDarkTheme, darkTheme, addNewCard, isAuth}) => {
                         <a href="#popNewCard">Создать новую задачу</a>
                     </button>
                     <S.HeaderUser className="_hover02" onClick={manualOpen}>{isAuth.name}</S.HeaderUser>
-                    {isOpen && (<PopUser setDarkTheme={setDarkTheme} darkTheme={darkTheme} />)}
+                    {isOpen && (<PopUser isAuth={isAuth} setDarkTheme={setDarkTheme} darkTheme={darkTheme} />)}
                 </S.HeaderNav>
             </S.HeaderBlock>
         </Container>

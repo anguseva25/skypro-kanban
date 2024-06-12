@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {paths} from "../../routesPath";
 
 
-const PopUser = ({setDarkTheme, darkTheme}) => {
+const PopUser = ({setDarkTheme, darkTheme, isAuth}) => {
     const navigate = useNavigate();
 
     // function toggleTheme(event) {
@@ -14,8 +14,8 @@ const PopUser = ({setDarkTheme, darkTheme}) => {
 
     return (
         <S.HeaderPopUser id={"pop-user"}>
-            <S.PopUserName>Ivan Ivanov</S.PopUserName>
-            <S.PopUserMail>ivan.ivanov@gmail.com</S.PopUserMail>
+            <S.PopUserName>{isAuth.name}</S.PopUserName>
+            <S.PopUserMail>{isAuth.login}</S.PopUserMail>
             <S.PopUserSetTheme>
                 <S.PopUserTheme>{darkTheme ? 'Темная' : 'Светлая'} тема</S.PopUserTheme>
                 <S.PopUserCheckbox type="checkbox" className="checkbox" name="checkbox" onChange={() => setDarkTheme(!darkTheme)}/>
