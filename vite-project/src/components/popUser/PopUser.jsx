@@ -6,12 +6,6 @@ import {paths} from "../../routesPath";
 const PopUser = ({setDarkTheme, darkTheme, isAuth}) => {
     const navigate = useNavigate();
 
-    // function toggleTheme(event) {
-    //     console.log(darkTheme)
-    //     console.log(setDarkTheme)
-    //     /*onChange = {() => setDarkTheme(!darkTheme)}*/
-    // }
-
     return (
         <S.HeaderPopUser id={"pop-user"}>
             <S.PopUserName>{isAuth.name}</S.PopUserName>
