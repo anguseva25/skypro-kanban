@@ -11,7 +11,6 @@ const Header = ({setDarkTheme, darkTheme, addNewCard, isAuth}) => {
         setOpen((prev) => !prev);
     };
 
-
     return (<S.Header>
         <Container>
             <S.HeaderBlock>

@@ -36,9 +36,9 @@ export const MainPage = ({darkTheme, setDarkTheme, isAuth}) => {
         }).finally(() => {
             setLoading(false);
         })
-        setTimeout(() => {
+        {/*setTimeout(() => {
             setLoading(false)
-        }, 2000)
+        }, 2000)*/}
     }, []);
 
     return (
