@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {cardList} from "../../data";
 import {Wrapper} from "../../global.styled";
 import PopNewCard from "../../components/popNewCard/popNewCard";
@@ -6,12 +6,14 @@ import Header from "../../components/header/header";
 import Main from "../../components/Main/Main";
 import {Outlet} from "react-router-dom";
 import {getCards} from "../../API/cardsAPI.js";
+import {UserContext} from "../../context/userContext.jsx";
 
 
-export const MainPage = ({darkTheme, setDarkTheme, isAuth}) => {
+export const MainPage = ({darkTheme, setDarkTheme}) => {
     const [isLoading, setLoading] = useState(true);
     const [errorMesg, setErrorMesg] = useState(false);
     const [cards, setCards] = useState(cardList);
+    const {user} = useContext(UserContext)
 
     const addNewCard = () => {
         // const newCard = {
@@ -28,7 +30,7 @@ export const MainPage = ({darkTheme, setDarkTheme, isAuth}) => {
     useEffect(() => {
         setLoading(true)
 
-        getCards(isAuth.token).then((res) => {
+        getCards(user.token).then((res) => {
             setErrorMesg('')
             setCards(res.tasks);
         }).catch((err) => {
@@ -45,7 +47,7 @@ export const MainPage = ({darkTheme, setDarkTheme, isAuth}) => {
         <Wrapper>
             <PopNewCard/>
             {/*<PopBrowse/>*/}
-            <Header isAuth={isAuth} setDarkTheme={setDarkTheme} darkTheme={darkTheme} setCards={setCards} addNewCard={addNewCard}/>
+            <Header user={user} setDarkTheme={setDarkTheme} darkTheme={darkTheme} setCards={setCards} addNewCard={addNewCard}/>
             <Main errorMesg={errorMesg} isLoading={isLoading} cardList={cards}/>
             <Outlet/>
         </Wrapper>)

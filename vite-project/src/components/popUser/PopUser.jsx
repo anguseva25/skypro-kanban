@@ -3,13 +3,13 @@ import {useNavigate} from "react-router-dom";
 import {paths} from "../../routesPath";
 
 
-const PopUser = ({setDarkTheme, darkTheme, isAuth}) => {
+const PopUser = ({setDarkTheme, darkTheme, user}) => {
     const navigate = useNavigate();
 
     return (
         <S.HeaderPopUser id={"pop-user"}>
-            <S.PopUserName>{isAuth.name}</S.PopUserName>
-            <S.PopUserMail>{isAuth.login}</S.PopUserMail>
+            <S.PopUserName>{user.name}</S.PopUserName>
+            <S.PopUserMail>{user.login}</S.PopUserMail>
             <S.PopUserSetTheme>
                 <S.PopUserTheme>{darkTheme ? 'Темная' : 'Светлая'} тема</S.PopUserTheme>
                 <S.PopUserCheckbox type="checkbox" className="checkbox" name="checkbox" onChange={() => setDarkTheme(!darkTheme)}/>
