@@ -13,7 +13,7 @@ const statusList = [
     "Готово",
 ];
 
-const Main = ({cardList}) => {
+const Main = ({cardList, errorMesg}) => {
     const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -27,7 +27,7 @@ const Main = ({cardList}) => {
             <Container>
                 <MainBlock>
                     <MainContent>
-                        {
+                        {errorMesg ? <p>{errorMesg}</p> :(
                             isLoading
                                 ? <Loader/>
                                 : statusList.map((status) => (
@@ -37,7 +37,8 @@ const Main = ({cardList}) => {
                                         cardList={cardList.filter(card => card.status === status)}
                                     />
                                 ))
-                        }
+                        )}
+
                     </MainContent>
                 </MainBlock>
             </Container>

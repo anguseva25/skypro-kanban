@@ -4,7 +4,7 @@ import * as S from "./Header.styled"
 import {Container} from "../shared.styled";
 
 
-const Header = ({setDarkTheme, darkTheme, addNewCard}) => {
+const Header = ({setDarkTheme, darkTheme, addNewCard, isAuth}) => {
     const [isOpen, setOpen] = useState(false);
 
     const manualOpen = () => {
@@ -25,8 +25,8 @@ const Header = ({setDarkTheme, darkTheme, addNewCard}) => {
                     <button className="header__btn-main-new _hover01" onClick={addNewCard}>
                         <a href="#popNewCard">Создать новую задачу</a>
                     </button>
-                    <S.HeaderUser className="_hover02" onClick={manualOpen}>Ivan Ivanov</S.HeaderUser>
-                    {isOpen && (<PopUser setDarkTheme={setDarkTheme} darkTheme={darkTheme} />)}
+                    <S.HeaderUser className="_hover02" onClick={manualOpen}>{isAuth.name}</S.HeaderUser>
+                    {isOpen && (<PopUser isAuth={isAuth} setDarkTheme={setDarkTheme} darkTheme={darkTheme} />)}
                 </S.HeaderNav>
             </S.HeaderBlock>
         </Container>

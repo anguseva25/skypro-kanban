@@ -10,8 +10,8 @@ const Card =({cardId, topic, title, date}) => {
         "Research": "green",
     }
 
-    const colorClass = colorIndicator[topic] || "";
-    console.log(colorClass)
+    {/*const colorClass = colorIndicator[topic] || "";
+    console.log(colorClass)*/}
 
     return (
         <CardsItem>

@@ -9,13 +9,24 @@ import {NotFoundPage} from "./pages/unfoundPage/NotFoundPage";
 import {PopBrowsePage} from "./pages/Popups/PopBrowse/PopBrowsePage";
 import {PopExitPage} from "./pages/Popups/PopExit/PopExitPage";
 
+function getLocalStorage(){
+    let user = ''
+    try {
+       user = JSON.parse(localStorage.getItem('user'));
+       return user
+    }
+
+    catch (err) {
+        return ''
+    }
+}
 
 export const AppRoutes = ({darkTheme, setDarkTheme}) => {
-    const [isAuth, setIsAuth] = useState(true); {/*поменять на false после API*/}
+    const [isAuth, setIsAuth] = useState(getLocalStorage()); {/*поменять на false после API*/}
 
     return (<Routes>
             <Route element={<PrivateRoute isAuth={isAuth} />}>
-                <Route path={paths.MAIN} element={<MainPage darkTheme={darkTheme} setDarkTheme={setDarkTheme}/>}>
+                <Route path={paths.MAIN} element={<MainPage isAuth={isAuth} darkTheme={darkTheme} setDarkTheme={setDarkTheme}/>}>
                     <Route path={paths.EXIT} element={<PopExitPage/>}/>
                     <Route path={paths.CARD_ID} element={<PopBrowsePage/>}/>
                 </Route>
