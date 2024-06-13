@@ -7,14 +7,17 @@ import PrivateRoute from "./components/PrivateRoute";
 import {NotFoundPage} from "./pages/unfoundPage/NotFoundPage";
 import {PopBrowsePage} from "./pages/Popups/PopBrowse/PopBrowsePage";
 import {PopExitPage} from "./pages/Popups/PopExit/PopExitPage";
+import PopNewCard from "./components/popNewCard/popNewCard.jsx";
 
 export const AppRoutes = ({darkTheme, setDarkTheme}) => {
+
 
     return (<Routes>
             <Route element={<PrivateRoute/>}>
                 <Route path={paths.MAIN} element={<MainPage darkTheme={darkTheme} setDarkTheme={setDarkTheme}/>}>
                     <Route path={paths.EXIT} element={<PopExitPage/>}/>
                     <Route path={paths.CARD_ID} element={<PopBrowsePage/>}/>
+                    <Route path={paths.NEW_CARD} element={<PopNewCard/>}/>
                 </Route>
             </Route>
             <Route path={paths.LOGIN} element={<LoginPage/>}/>
