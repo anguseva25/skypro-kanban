@@ -34,7 +34,6 @@ export const MainPage = ({darkTheme, setDarkTheme}) => {
 
     return (
         <Wrapper>
-            <PopNewCard/>
             {/*<PopBrowse/>*/}
             <Header user={user} setDarkTheme={setDarkTheme} darkTheme={darkTheme} setCards={setCards}/>
             <Main errorMesg={errorMesg} isLoading={isLoading} cardList={cards}/>

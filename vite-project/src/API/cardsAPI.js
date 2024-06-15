@@ -14,7 +14,6 @@ export const getCards = (token) => {
     })
 }
 
-
 export const addNewCard = ({token, newTask}) => {
     return fetch('https://wedev-api.sky.pro/api/kanban', {
         headers: {

@@ -1,12 +1,13 @@
 import styled from "styled-components";
+import {Link} from "react-router-dom";
 
 export const PopNewCardCommun = styled.div`
-    display: none;
+    display: block;
     width: 100%;
     min-width: 375px;
     height: 100%;
     min-height: 100vh;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 6;
@@ -139,5 +140,6 @@ export const BtnFormNewCreate = styled.button`
     &_hover01:hover {
         background-color: #33399b;
     }
-`
+`;
 
+export const LinkNewCard = styled(Link)``

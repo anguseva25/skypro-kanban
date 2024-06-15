@@ -2,33 +2,86 @@ import Calendar from "../calendar/Calendar";
 import {
     BtnFormNewCreate,
     Categorie,
-    Categories, CategoriesTheme,
+    Categories,
+    CategoriesTheme,
     PopNewCardBlock,
+    PopNewCardCommun,
     PopNewCardContainer,
-    PopNewCardContent, PopNewCardFormBlock, PopNewCardFormNew,
-    PopNewCardLink,
-    PopNewCardTitle, PopNewCardWrap, PopNewCardCommun
+    PopNewCardContent,
+    PopNewCardFormBlock,
+    PopNewCardFormNew,
+    PopNewCardTitle,
+    PopNewCardWrap
 } from "./PopNewCard.styled.js";
+import {useContext, useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {paths} from "../../routesPath.js";
+import {addNewCard} from "../../API/cardsAPI.js";
+import {UserContext} from "../../context/userContext.jsx";
+import {CardContext} from "../../context/cardContext.jsx";
 
 
-const PopNewCard = () => {
+export const PopNewCard = () => {
+    const {user} = useContext(UserContext)
+    const {setCards} = useContext(CardContext);
+    const navigate = useNavigate();
+
+
+    const [error, setError] = useState(null);
+    const [inputValue, setInputValue] = useState({
+        topic: '',
+        title: '',
+        description: '',
+        status: 'Без статуса',
+    });
+
+    const onChangeInput = (e) => {
+        const {value, name} = e.target;
+        setInputValue({...inputValue, [name]: value});
+    }
+
+    const onAddNewCard = () => {
+        setError('')
+
+        if (!inputValue.description) {
+            return setError('Введите описание задачи')
+        }
+
+        const title = inputValue.title || 'Новая задача'
+        const topic = inputValue.topic || 'Research'
+        const newTask = {
+            ...inputValue, title, topic
+        }
+
+        addNewCard({token: user.token, newTask})
+            .then((res) => {
+                setCards(res.tasks)
+                navigate(paths.MAIN)
+            })
+            .catch((err) => {
+                setError(err.message)
+            })
+    }
+
     return (
         <PopNewCardCommun>
             <PopNewCardContainer>
                 <PopNewCardBlock>
                     <PopNewCardContent>
                         <PopNewCardTitle/>
-                        <PopNewCardLink>&#10006;</PopNewCardLink>
+                        <Link to={paths.MAIN}> &#10006; </Link>
                         <PopNewCardWrap>
                             <PopNewCardFormNew>
                                 <PopNewCardFormBlock>
                                     <label htmlFor="formTitle" className="subttl">Название задачи</label>
-                                    <input className="form-new__input" type="text" name="name" id="formTitle"
+                                    <input onChange={onChangeInput} className="form-new__input" type="text"
+                                           name="title" id="formTitle"
                                            placeholder="Введите название задачи..." autoFocus/>
                                 </PopNewCardFormBlock>
                                 <PopNewCardFormBlock>
                                     <label htmlFor="textArea" className="subttl">Описание задачи</label>
-                                    <textarea className="form-new__area" name="text" id="textArea"
+                                    <textarea onChange={onChangeInput} className="form-new__area" name="description"
+                                              id="textArea"
                                               placeholder="Введите описание задачи..."></textarea>
                                 </PopNewCardFormBlock>
                             </PopNewCardFormNew>
@@ -48,7 +101,8 @@ const PopNewCard = () => {
                                 </div>
                             </CategoriesTheme>
                         </Categories>
-                        <BtnFormNewCreate>Создать задачу</BtnFormNewCreate>
+                        {error && error}
+                        <BtnFormNewCreate onChange={onAddNewCard}>Создать задачу</BtnFormNewCreate>
                     </PopNewCardContent>
                 </PopNewCardBlock>
             </PopNewCardContainer>
