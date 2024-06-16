@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {colour, colourDarkTheme} from "../shared.styled";
 
 
 export const CardContainer = styled.div`
@@ -26,24 +27,6 @@ export const TopicText = styled.p`
     font-weight: 600;
     line-height: 10px;
 `;
-
-export const colour = {
-    orange: `background-color: #FFE4C2;
-             color: #FF6D00;`,
-    purple: `background-color: #E9D4FF;
-             color: #9A48F1;`,
-    green: `background-color: #B4FDD1;
-            color: #06B16E;`
-}
-
-const colourDarkTheme = {
-    orange: `background-color: #FF6D00;
-             color: #FFE4C2;`,
-    purple: `background-color: #9A48F1;
-             color: #E9D4FF;`,
-    green: `background-color: #06B16E;
-            color: #B4FDD1;`
-}
 
 export const CardTopic = styled.div`
     width: auto;

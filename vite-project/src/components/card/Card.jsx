@@ -17,8 +17,8 @@ const Card =({cardId, topic, title, date}) => {
         <CardsItem>
             <S.CardContainer>
                 <CardGroup>
-                    <S.CardTopic $color = {colorIndicator[topic]}>
-                        <S.TopicText>{topic} {cardId}</S.TopicText>
+                    <S.CardTopic $color={colorIndicator[topic]}>
+                        <S.TopicText>{topic}</S.TopicText>
                     </S.CardTopic>
                     <Link to={`/card/${cardId}`}>
                         <CardBtn>
@@ -50,7 +50,7 @@ const Card =({cardId, topic, title, date}) => {
                                 </clipPath>
                             </defs>
                         </svg>
-                        <p>{date}</p>
+                        <p>{new Date(date).toLocaleDateString("ru-RU")}</p>
                     </CardDate>
                 </CardContent>
             </S.CardContainer>

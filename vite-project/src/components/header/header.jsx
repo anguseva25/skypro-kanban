@@ -3,17 +3,22 @@ import {useState} from "react";
 import * as S from "./Header.styled"
 import {Container} from "../shared.styled";
 import {paths} from "../../routesPath.js";
-import {LinkNewCard} from "../popNewCard/PopNewCard.styled.js";
-import {addNewCard} from "../../API/cardsAPI.js";
+import {useNavigate} from "react-router-dom";
 
 
 const Header = ({setDarkTheme, darkTheme, user}) => {
+    const navigate = useNavigate();
     const [isOpen, setOpen] = useState(false);
 
     const manualOpen = () => {
         setOpen((prev) => !prev);
     };
 
+    const handleClickNewCard = (event) => {
+        //event.preventDefault()
+
+        navigate(paths.NEW_CARD)
+    }
 
         return (<S.Header>
             <Container>
@@ -25,9 +30,9 @@ const Header = ({setDarkTheme, darkTheme, user}) => {
                         <a href="" target="_self"><img src="images/logo_dark.png" alt="logo"/></a>
                     </S.HeaderLogoDark>
                     <S.HeaderNav>
-                        <LinkNewCard to={paths.NEW_CARD} as={'button'} className="header__btn-main-new _hover01" onClick={addNewCard}>
-                            <a href="#popNewCard">Создать новую задачу</a>
-                        </LinkNewCard>
+                        <S.HeaderLinkNewCard className="header__btn-main-new _hover01" onClick={handleClickNewCard}>
+                            Создать новую задачу
+                        </S.HeaderLinkNewCard>
                         <S.HeaderUser className="_hover02" onClick={manualOpen}>{user.name}</S.HeaderUser>
                         {isOpen && (<PopUser user={user} setDarkTheme={setDarkTheme} darkTheme={darkTheme}/>)}
                     </S.HeaderNav>

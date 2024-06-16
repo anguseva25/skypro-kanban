@@ -2,16 +2,19 @@ import Calendar from "../calendar/Calendar";
 import {useNavigate, useParams} from "react-router-dom";
 import {cardList} from "../../data";
 import {paths} from "../../routesPath";
+import {useContext} from "react";
+import {CardContext} from "../../context/cardContext.jsx";
 
 
 const PopBrowse = () => {
     const { id } = useParams()
     const navigate = useNavigate();
+    const {cards} = useContext(CardContext);
 
     // console.log(id)
 
     // const item = cardList[0]
-    const item = cardList.filter((item) => item.id === Number(id))[0]
+    const item = cards.filter((item) => item._id === id)[0]
 
     return (
         <div className="pop-browse" id="popBrowse">
@@ -40,7 +43,7 @@ const PopBrowse = () => {
                                               placeholder="Введите описание задачи..." defaultValue={item.description} />
                                 </div>
                             </form>
-                            <Calendar selectedDate={item.date}/>
+                            <Calendar date={new Date(item.date)} />
                         </div>
                         <div className="theme-down__categories theme-down">
                             <p className="categories__p subttl">Категория</p>

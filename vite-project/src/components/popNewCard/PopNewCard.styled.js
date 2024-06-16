@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import {Link} from "react-router-dom";
+import {colour, colourDarkTheme} from "../shared.styled.js";
 
 export const PopNewCardCommun = styled.div`
     display: block;
@@ -49,6 +50,33 @@ export const PopNewCardTitle = styled.h3`
         line-height: 24px;
         margin-bottom: 20px;
 `;
+
+export const LabelNewTask = styled.label`
+    color: #000;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+`;
+
+export const ColorLabelInTasks = styled.label`
+    //display: inline-block;
+    //width: auto;
+    //height: 30px;
+    padding: 8px 20px;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 14px;
+    white-space: nowrap;
+    //margin-right: 7px;
+    //opacity: 0.4;
+
+    ${(props) => (props.theme.darkStyle ? colourDarkTheme : colour)[props.$color]}
+
+    //&._active-category {
+    //    opacity: 1 !important;
+    //}
+`
 
 export const PopNewCardLink = styled.a`
     position: absolute;
@@ -114,14 +142,14 @@ export const CategoriesTheme = styled.div`
     display: inline-block;
     width: auto;
     height: 30px;
-    padding: 8px 20px;
+    //padding: 8px 20px;
     border-radius: 24px;
     margin-right: 7px;
-    opacity: 0.4;
+    //opacity: 0.4;
     
-    &_active-category {
-        opacity: 1 !important;
-    }
+    //&_active-category {
+    //    opacity: 1 !important;
+    //}
 `;
 
 export const BtnFormNewCreate = styled.button`
@@ -144,10 +172,71 @@ export const BtnFormNewCreate = styled.button`
 
 export const LinkNewCard = styled(Link)``
 
+export const CloseNewTask = styled(Link)`
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #94A6BE;
+    cursor: pointer;
+}
+`
+
 export const RadioInput = styled.input`
-display: none;
+    display: none;
 `;
 
 export const WrapperRadio = styled.div`
-opacity: ${({$isActive}) => $isActive ? '1' : '0.4'};
+    opacity: ${({$isActive}) => $isActive ? '1' : '0.4'};
+    display: inline-block;
+    width: auto;
+    height: 30px;
+    border-radius: 24px;
+    margin-right: 7px;
+    
+`
+
+export const TextArea = styled.textarea`
+    max-width: 370px;
+    margin-top: 14px;
+    height: 200px;
+    width: 100%;
+    outline: none;
+    padding: 14px;
+    background: transparent;
+    border: 0.7px solid rgba(148, 166, 190, 0.4);
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1;
+    letter-spacing: -0.14px;
+    
+&::placeholder {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: -0.28px;
+    color: #94A6BE;
+}
+`;
+
+export const TextAreaInput = styled.input`
+    margin: 20px 0;
+    width: 100%;
+    outline: none;
+    padding: 14px;
+    background: transparent;
+    border: 0.7px solid rgba(148, 166, 190, 0.4);
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1;
+    letter-spacing: -0.14px;
+    
+&::placeholder {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: -0.28px;
+    color: #94A6BE;
+}
 `

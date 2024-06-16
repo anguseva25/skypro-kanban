@@ -3,7 +3,7 @@ import {
     BtnFormNewCreate,
     Categorie,
     Categories,
-    CategoriesTheme,
+    CategoriesTheme, CloseNewTask, ColorLabelInTasks, LabelNewTask,
     PopNewCardBlock,
     PopNewCardCommun,
     PopNewCardContainer,
@@ -11,10 +11,10 @@ import {
     PopNewCardFormBlock,
     PopNewCardFormNew,
     PopNewCardTitle,
-    PopNewCardWrap, RadioInput, WrapperRadio
+    PopNewCardWrap, RadioInput, TextArea, TextAreaInput, WrapperRadio
 } from "./PopNewCard.styled.js";
 import {useContext, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {paths} from "../../routesPath.js";
 import {addNewCard} from "../../API/cardsAPI.js";
 import {UserContext} from "../../context/userContext.jsx";
@@ -26,6 +26,7 @@ export const PopNewCard = () => {
     const {setCards} = useContext(CardContext);
     const navigate = useNavigate();
 
+    const [date, setDate] = useState(new Date(2024, 5, 26));
     const [topic, setTopic] = useState('')
     const [error, setError] = useState(null);
     const [inputValue, setInputValue] = useState({
@@ -39,6 +40,10 @@ export const PopNewCard = () => {
         setInputValue({...inputValue, [name]: value});
     }
 
+    const onChangeRadio = (e) => {
+        setTopic(e.target.value);
+    }
+
     const onAddNewCard = () => {
         setError('')
 
@@ -48,7 +53,7 @@ export const PopNewCard = () => {
 
         const title = inputValue.title || 'Новая задача'
         const newTask = {
-            ...inputValue, title, topic
+            ...inputValue, title, date, topic,
         }
 
         addNewCard({token: user.token, newTask})
@@ -66,44 +71,48 @@ export const PopNewCard = () => {
             <PopNewCardContainer>
                 <PopNewCardBlock>
                     <PopNewCardContent>
-                        <PopNewCardTitle/>
-                        <Link to={paths.MAIN}> &#10006; </Link>
+                        <PopNewCardTitle className="pop-new-card__ttl">Создание задачи</PopNewCardTitle>
+                        <CloseNewTask to={paths.MAIN}> &#10006; </CloseNewTask>
                         <PopNewCardWrap>
                             <PopNewCardFormNew>
                                 <PopNewCardFormBlock>
-                                    <label htmlFor="formTitle" className="subttl">Название задачи</label>
-                                    <input onChange={onChangeInput} className="form-new__input" type="text"
+                                    <LabelNewTask htmlFor="formTitle" className="subttl">Название задачи</LabelNewTask>
+                                    <TextAreaInput onChange={onChangeInput} className="form-new__input8" type="text"
                                            name="title" id="formTitle"
                                            placeholder="Введите название задачи..." autoFocus/>
                                 </PopNewCardFormBlock>
                                 <PopNewCardFormBlock>
-                                    <label htmlFor="textArea" className="subttl">Описание задачи</label>
-                                    <textarea onChange={onChangeInput} className="form-new__area" name="description"
+                                    <LabelNewTask htmlFor="textArea" className="subttl">Описание задачи</LabelNewTask>
+                                    <TextArea onChange={onChangeInput} className="form-new__area7" name="description"
                                               id="textArea"
-                                              placeholder="Введите описание задачи..."></textarea>
+                                              placeholder="Введите описание задачи..."></TextArea>
                                 </PopNewCardFormBlock>
                             </PopNewCardFormNew>
-                            <Calendar/>
+                            <Calendar date={date} setDate={setDate} />
                         </PopNewCardWrap>
                         <Categories>
                             <Categorie>Категория</Categorie>
                             <CategoriesTheme>
-                                <WrapperRadio $isActive={topic === 'Web Design'} className="categories__theme _orange _active-category">
-                                    <label htmlFor="radio1">Web Design</label>
-                                    <RadioInput onChange={(e)=> setTopic(e.target.value)} className="_orange" type="radio" name="try" id="radio1" value={"Web Design"}/>
+                                <WrapperRadio $isActive={topic === 'Web Design'}
+                                              className="categories__theme5 _orange _active-category9">
+                                    <ColorLabelInTasks htmlFor="radio1" $color={"orange"}>Web Design</ColorLabelInTasks>
+                                    <RadioInput onChange={onChangeRadio} className="_orange"
+                                                type="radio" name="try" id="radio1" value={"Web Design"}/>
                                 </WrapperRadio>
-                                <WrapperRadio $isActive={topic === 'Research'}  className="categories__theme _green">
-                                    <label htmlFor="radio1">Research</label>
-                                    <RadioInput onChange={(e)=> setTopic(e.target.value)} className="_green" type="radio" name="try" id="radio2" value={"Research"}/>
+                                <WrapperRadio $isActive={topic === 'Research'} className="categories__theme5 _green">
+                                    <ColorLabelInTasks htmlFor="radio2" $color={"green"}>Research</ColorLabelInTasks>
+                                    <RadioInput onChange={onChangeRadio} className="_green"
+                                                type="radio" name="try" id="radio2" value={"Research"}/>
                                 </WrapperRadio>
-                                <WrapperRadio $isActive={topic === 'Copywriting'}  className="categories__theme _purple">
-                                    <label htmlFor="radio1">Copywriting</label>
-                                    <RadioInput onChange={(e)=> setTopic(e.target.value)} className="_purple" type="radio" name="try" id="radio3" value={"Copywriting"}/>
+                                <WrapperRadio $isActive={topic === 'Copywriting'} className="categories__theme5 _purple">
+                                    <ColorLabelInTasks htmlFor="radio3" $color={"purple"}>Copywriting</ColorLabelInTasks>
+                                    <RadioInput onChange={onChangeRadio} className="_purple"
+                                                type="radio" name="try" id="radio3" value={"Copywriting"}/>
                                 </WrapperRadio>
                             </CategoriesTheme>
                         </Categories>
                         {error && error}
-                        <BtnFormNewCreate onChange={onAddNewCard}>Создать задачу</BtnFormNewCreate>
+                        <BtnFormNewCreate onClick={onAddNewCard}>Создать задачу</BtnFormNewCreate>
                     </PopNewCardContent>
                 </PopNewCardBlock>
             </PopNewCardContainer>

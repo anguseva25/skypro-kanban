@@ -8,9 +8,9 @@ const Column = ({title, cardList}) => {
                 <ColumnParagraph>{title}</ColumnParagraph>
             </ColumnTitle>
             <CardsColumn>
-                {cardList.map(({ id, topic, title, date }) => (
-                    <Card key = {id}
-                          cardId={id}
+                {cardList.map(({ _id, topic, title, date }) => (
+                    <Card key={_id}
+                          cardId={_id}
                           topic={topic}
                           title={title}
                           date={date}
