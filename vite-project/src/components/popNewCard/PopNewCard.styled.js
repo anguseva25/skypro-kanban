@@ -143,3 +143,11 @@ export const BtnFormNewCreate = styled.button`
 `;
 
 export const LinkNewCard = styled(Link)``
+
+export const RadioInput = styled.input`
+display: none;
+`;
+
+export const WrapperRadio = styled.div`
+opacity: ${({$isActive}) => $isActive ? '1' : '0.4'};
+`

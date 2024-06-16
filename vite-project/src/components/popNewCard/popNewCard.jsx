@@ -11,7 +11,7 @@ import {
     PopNewCardFormBlock,
     PopNewCardFormNew,
     PopNewCardTitle,
-    PopNewCardWrap
+    PopNewCardWrap, RadioInput, WrapperRadio
 } from "./PopNewCard.styled.js";
 import {useContext, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
@@ -26,10 +26,9 @@ export const PopNewCard = () => {
     const {setCards} = useContext(CardContext);
     const navigate = useNavigate();
 
-
+    const [topic, setTopic] = useState('')
     const [error, setError] = useState(null);
     const [inputValue, setInputValue] = useState({
-        topic: '',
         title: '',
         description: '',
         status: 'Без статуса',
@@ -48,7 +47,6 @@ export const PopNewCard = () => {
         }
 
         const title = inputValue.title || 'Новая задача'
-        const topic = inputValue.topic || 'Research'
         const newTask = {
             ...inputValue, title, topic
         }
@@ -90,15 +88,18 @@ export const PopNewCard = () => {
                         <Categories>
                             <Categorie>Категория</Categorie>
                             <CategoriesTheme>
-                                <div className="categories__theme _orange _active-category">
-                                    <p className="_orange">Web Design</p>
-                                </div>
-                                <div className="categories__theme _green">
-                                    <p className="_green">Research</p>
-                                </div>
-                                <div className="categories__theme _purple">
-                                    <p className="_purple">Copywriting</p>
-                                </div>
+                                <WrapperRadio $isActive={topic === 'Web Design'} className="categories__theme _orange _active-category">
+                                    <label htmlFor="radio1">Web Design</label>
+                                    <RadioInput onChange={(e)=> setTopic(e.target.value)} className="_orange" type="radio" name="try" id="radio1" value={"Web Design"}/>
+                                </WrapperRadio>
+                                <WrapperRadio $isActive={topic === 'Research'}  className="categories__theme _green">
+                                    <label htmlFor="radio1">Research</label>
+                                    <RadioInput onChange={(e)=> setTopic(e.target.value)} className="_green" type="radio" name="try" id="radio2" value={"Research"}/>
+                                </WrapperRadio>
+                                <WrapperRadio $isActive={topic === 'Copywriting'}  className="categories__theme _purple">
+                                    <label htmlFor="radio1">Copywriting</label>
+                                    <RadioInput onChange={(e)=> setTopic(e.target.value)} className="_purple" type="radio" name="try" id="radio3" value={"Copywriting"}/>
+                                </WrapperRadio>
                             </CategoriesTheme>
                         </Categories>
                         {error && error}
