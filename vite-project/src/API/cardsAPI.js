@@ -20,7 +20,13 @@ export const addNewCard = ({token, newTask}) => {
             'Authorization': `Bearer ${token}`
         },
         method: 'POST',
-        body: JSON.stringify(newTask)
+        body: JSON.stringify({
+            title: newTask.title,
+            topic: newTask.topic,
+            status: newTask.status,
+            description: newTask.description,
+            date: newTask.date,
+        }),
     }).then(res => {
         if (res.status === 400) throw new Error("Некорректные данные, не в формате JSON");
         if (res.status === 401) throw new Error("нет авторизации");

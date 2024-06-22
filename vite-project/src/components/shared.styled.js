@@ -42,6 +42,10 @@ export const Button = styled.button`
     margin-right: 10px;
 
     ${hover03}
+    
+    a, a:visited {
+        color: inherit;
+    }
 `;
 
 export const Container = styled.div`

@@ -1,20 +1,48 @@
-import Calendar from "../calendar/Calendar";
+import {useContext, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import {cardList} from "../../data";
+import Calendar from "../calendar/Calendar";
 import {paths} from "../../routesPath";
-import {useContext} from "react";
-import {CardContext} from "../../context/cardContext.jsx";
+import {CardContext} from "../../context/cardContext";
+import {colorIndicator} from "../card/Card.jsx";
 
 
 const PopBrowse = () => {
     const { id } = useParams()
     const navigate = useNavigate();
     const {cards} = useContext(CardContext);
+    const [inputValue, setInputValue] = useState({
+        topic: "",
+        title: "",
+        description: "",
+        date: "",
+        status: "",
+        color: "",
+    })
+
+    useEffect(() => {
+        if (cards.length === 0)
+            return
+
+        const item = cards.filter((item) => item._id === id)[0]
+
+        if (!item)
+            return navigate(paths.MAIN)
+
+        setInputValue({
+            ...inputValue,
+            topic:       item.topic,
+            title:       item.title,
+            description: item.description,
+            date:        item.date,
+            status:      item.status,
+            color:       colorIndicator[item.topic],
+        })
+    }, [cards])
 
     // console.log(id)
 
     // const item = cardList[0]
-    const item = cards.filter((item) => item._id === id)[0]
+    //const item = cards.filter((item) => item._id === id)[0]
 
     return (
         <div className="pop-browse" id="popBrowse">
@@ -22,16 +50,16 @@ const PopBrowse = () => {
                 <div className="pop-browse__block">
                     <div className="pop-browse__content">
                         <div className="pop-browse__top-block">
-                            <h3 className="pop-browse__ttl">{item.title}</h3>
+                            <h3 className="pop-browse__ttl">{inputValue.title}</h3>
                             <div className="categories__theme theme-top _orange _active-category">
-                                <p className="_orange">{item.topic}</p>
+                                <p className="_orange">{inputValue.topic}</p>
                             </div>
                         </div>
                         <div className="pop-browse__status status">
                             <p className="status__p subttl">Статус</p>
                             <div className="status__themes">
                                 <div className="status__theme _gray">
-                                    <p className="_gray">{item.status}</p>
+                                    <p className="_gray">{inputValue.status}</p>
                                 </div>
                             </div>
                         </div>
@@ -40,10 +68,10 @@ const PopBrowse = () => {
                                 <div className="form-browse__block">
                                     <label htmlFor="textArea01" className="subttl">Описание задачи</label>
                                     <textarea className="form-browse__area" name="text" id="textArea01" readOnly
-                                              placeholder="Введите описание задачи..." defaultValue={item.description} />
+                                              placeholder="Введите описание задачи..." defaultValue={inputValue.description} />
                                 </div>
                             </form>
-                            <Calendar date={new Date(item.date)} />
+                            <Calendar date={new Date(inputValue.date)} />
                         </div>
                         <div className="theme-down__categories theme-down">
                             <p className="categories__p subttl">Категория</p>

@@ -26,6 +26,15 @@ export const PopNewCard = () => {
     const {setCards} = useContext(CardContext);
     const navigate = useNavigate();
 
+
+    String.prototype.safeCode = function () {
+        return this
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;");
+    };
+
     const [date, setDate] = useState(new Date(2024, 5, 26));
     const [topic, setTopic] = useState('')
     const [error, setError] = useState(null);
@@ -47,13 +56,28 @@ export const PopNewCard = () => {
     const onAddNewCard = () => {
         setError('')
 
+        for (const key in inputValue) {
+            inputValue[key] = inputValue[key].trim();
+        }
+
+        if (!inputValue.title) {
+            return setError('Введите описание задачи')
+        }
+
         if (!inputValue.description) {
             return setError('Введите описание задачи')
         }
 
-        const title = inputValue.title || 'Новая задача'
+        if (!topic) {
+            return setError('Выберите категорию задачи')
+        }
+
+        if (!date) {
+            return setError('Укажите срок исполнения задачи')
+        }
+
         const newTask = {
-            ...inputValue, title, date, topic,
+            ...inputValue, date, topic,
         }
 
         addNewCard({token: user.token, newTask})

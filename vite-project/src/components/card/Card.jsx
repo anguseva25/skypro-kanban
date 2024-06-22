@@ -3,13 +3,13 @@ import {CardBtn, CardBtnDiv, CardContent, CardDate, CardGroup, CardsItem} from "
 import {Link} from "react-router-dom";
 
 
-const Card =({cardId, topic, title, date}) => {
-    const colorIndicator = {
-        "Web Design": "orange",
-        "Copywriting": "purple",
-        "Research": "green",
-    }
+export const colorIndicator = {
+    "Web Design": "orange",
+    "Copywriting": "purple",
+    "Research": "green",
+}
 
+const Card =({cardId, topic, title, date}) => {
     {/*const colorClass = colorIndicator[topic] || "";
     console.log(colorClass)*/}
 
