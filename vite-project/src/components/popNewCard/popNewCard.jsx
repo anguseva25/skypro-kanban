@@ -35,7 +35,7 @@ export const PopNewCard = () => {
             .replaceAll('"', "&quot;");
     };
 
-    const [date, setDate] = useState(new Date(2024, 5, 26));
+    const [date, setDate] = useState('');
     const [topic, setTopic] = useState('')
     const [error, setError] = useState(null);
     const [inputValue, setInputValue] = useState({
@@ -61,7 +61,7 @@ export const PopNewCard = () => {
         }
 
         if (!inputValue.title) {
-            return setError('Введите описание задачи')
+            return setError('Введите название задачи')
         }
 
         if (!inputValue.description) {

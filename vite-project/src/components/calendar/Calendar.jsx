@@ -1,15 +1,11 @@
 import {
-    CalendarBlock, CalendarCell, CalendarCells,
     CalendarContainer,
-    CalendarContent, CalendarDays,
-    CalendarHeader,
-    CalendarMonth, CalendarPeriod,
-    CalendarTtlSubttl, CalendrDateControl, DateControl, EachCalendarDay, Calendarier
+    CalendarPeriod,
+    CalendarTtlSubttl, CalendrDateControl, DateControl, Calendarier
 } from "./Calendar.styled.js";
-import {useState} from "react";
 import {ru} from "date-fns/locale/ru";
 
-const DaysOfWeek =[
+{/*const DaysOfWeek =[
     'пн',
     'вт',
     'ср',
@@ -17,7 +13,7 @@ const DaysOfWeek =[
     'пт',
     'сб',
     'вс',
-]
+]*/}
 
 const Calendar = ({date, setDate}) => {
     // const getDateFormat = (date) => {
@@ -95,7 +91,7 @@ const Calendar = ({date, setDate}) => {
             {/*    </CalendarContent>*/}
                 <input type="hidden" id="datepick_value" value="08.09.2023"/>
                 <CalendarPeriod>
-            <CalendrDateControl>Срок исполнения: <DateControl>{date.toLocaleDateString("ru-US")}</DateControl></CalendrDateControl>
+            <CalendrDateControl>Срок исполнения: <DateControl> onClick={setDate} </DateControl></CalendrDateControl>
                 </CalendarPeriod>
             {/*/!*</CalendarBlock>*!/*/}
         </CalendarContainer>
