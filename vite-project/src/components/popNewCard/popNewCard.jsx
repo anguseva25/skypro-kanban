@@ -16,16 +16,15 @@ import {
 import {useContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {paths} from "../../routesPath.js";
-import {addNewCard} from "../../API/cardsAPI.js";
+import {addNewCard, deleteCard} from "../../API/cardsAPI.js";
 import {UserContext} from "../../context/userContext.jsx";
 import {CardContext} from "../../context/cardContext.jsx";
 
 
 export const PopNewCard = () => {
     const {user} = useContext(UserContext)
-    const {setCards} = useContext(CardContext);
-    const navigate = useNavigate();
-
+    const {setCards} = useContext(CardContext)
+    const navigate = useNavigate()
 
     String.prototype.safeCode = function () {
         return this
@@ -37,7 +36,7 @@ export const PopNewCard = () => {
 
     const [date, setDate] = useState('');
     const [topic, setTopic] = useState('')
-    const [error, setError] = useState(null);
+    const [error, setError] = useState(null)
     const [inputValue, setInputValue] = useState({
         title: '',
         description: '',

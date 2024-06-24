@@ -4,17 +4,23 @@ import Calendar from "../calendar/Calendar";
 import {paths} from "../../routesPath";
 import {CardContext} from "../../context/cardContext";
 import {colorIndicator} from "../card/Card.jsx";
+import {deleteCard} from "../../API/cardsAPI.js";
+import {UserContext} from "../../context/userContext.jsx";
 
 
 const PopBrowse = () => {
+    const {user} = useContext(UserContext)
+    const {setCards} = useContext(CardContext)
+
     const { id } = useParams()
-    const navigate = useNavigate();
-    const {cards} = useContext(CardContext);
+    const navigate = useNavigate()
+    const {cards} = useContext(CardContext)
+    const [error, setError] = useState(null)
     const [inputValue, setInputValue] = useState({
         topic: "",
         title: "",
         description: "",
-        date: "",
+        date: new Date(),
         status: "",
         color: "",
     })
@@ -33,16 +39,24 @@ const PopBrowse = () => {
             topic:       item.topic,
             title:       item.title,
             description: item.description,
-            date:        item.date,
+            date:        new Date(item.date),
             status:      item.status,
             color:       colorIndicator[item.topic],
         })
     }, [cards])
 
-    // console.log(id)
+    function handleDelete() {
+        setError('')
 
-    // const item = cardList[0]
-    //const item = cards.filter((item) => item._id === id)[0]
+        deleteCard({id, token: user.token})
+            .then((res) => {
+                setCards(res.tasks)
+                navigate(paths.MAIN)
+            })
+            .catch((err) => {
+                setError(err.message)
+            })
+    }
 
     return (
         <div className="pop-browse" id="popBrowse">
@@ -71,7 +85,7 @@ const PopBrowse = () => {
                                               placeholder="Введите описание задачи..." defaultValue={inputValue.description} />
                                 </div>
                             </form>
-                            <Calendar date={new Date(inputValue.date)} />
+                            <Calendar date={inputValue.date} />
                         </div>
                         <div className="theme-down__categories theme-down">
                             <p className="categories__p subttl">Категория</p>
@@ -79,12 +93,12 @@ const PopBrowse = () => {
                                 <p className="_orange">Web Design</p>
                             </div>
                         </div>
+                        {error && error}
                         <div className="pop-browse__btn-browse ">
                             <div className="btn-group">
                                 <button className="btn-browse__edit _btn-bor _hover03"><a href="#">Редактировать
                                     задачу</a></button>
-                                <button className="btn-browse__delete _btn-bor _hover03"><a href="#">Удалить задачу</a>
-                                </button>
+                                <button className="btn-browse__delete _btn-bor _hover03" onClick={handleDelete}>Удалить задачу</button>
                             </div>
                             <button className="btn-browse__close _btn-bg _hover01" onClick={() => navigate(paths.MAIN)}>Закрыть</button>
                         </div>
@@ -92,12 +106,10 @@ const PopBrowse = () => {
                             <div className="btn-group">
                                 <button className="btn-edit__edit _btn-bg _hover01"><a href="#">Сохранить</a></button>
                                 <button className="btn-edit__edit _btn-bor _hover03"><a href="#">Отменить</a></button>
-                                <button className="btn-edit__delete _btn-bor _hover03" id="btnDelete"><a href="#">Удалить
-                                    задачу</a></button>
+                                <button className="btn-edit__delete _btn-bor _hover03" id="btnDelete" onClick={handleDelete}>Удалить задачу</button>
                             </div>
                             <button className="btn-edit__close _btn-bg _hover01" onClick={() => navigate(paths.MAIN)}>Закрыть</button>
                         </div>
-
                     </div>
                 </div>
             </div>
