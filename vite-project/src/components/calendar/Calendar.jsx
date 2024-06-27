@@ -1,15 +1,12 @@
 import {
-    CalendarActiveDay,
-    CalendarBlock, CalendarCell, CalendarCells,
     CalendarContainer,
-    CalendarContent, CalendarDays,
-    CalendarHeader,
-    CalendarMonth, CalendarPeriod,
-    CalendarTtlSubttl, CalendrDateControl, DateControl, EachCalendarDay
-} from "./Calendar.styled";
+    CalendarPeriod,
+    CalendarTtlSubttl, CalendrDateControl, DateControl, Calendarier
+} from "./Calendar.styled.js";
+import {ru} from "date-fns/locale";
+import {format} from "date-fns";
 
-
-const DaysOfWeek =[
+{/*const DaysOfWeek =[
     'пн',
     'вт',
     'ср',
@@ -17,13 +14,21 @@ const DaysOfWeek =[
     'пт',
     'сб',
     'вс',
-]
+]*/}
 
-const Calendar = ({ selectedDate }) => {
+const Calendar = ({date, setDate}) => {
+    // const getDateFormat = (date) => {
+    //     const formatDate = date.toLocaleDateString("ru-US");
+    //     return <>{formatDate}</>
+    // }
+
+    const formatedDate = date ? format(date, "dd.MM.yy", { locale: ru }) : ""
+
     return (
         <CalendarContainer>
             <CalendarTtlSubttl>Даты</CalendarTtlSubttl>
-            <CalendarBlock>
+            <Calendarier locale={ru} mode="single" required selected={date} onSelect={setDate}/>
+            {/*<CalendarBlock>
                 <CalendarHeader>
                     <CalendarMonth>Сентябрь 2023</CalendarMonth>
                     <div className="nav__actions">
@@ -86,12 +91,18 @@ const Calendar = ({ selectedDate }) => {
                         <CalendarCell $weekend={true}>30</CalendarCell>
                         <CalendarCell $weekend={true} $otherMonth={true}>1</CalendarCell>
                     </CalendarCells>
-                </CalendarContent>
-                <input type="hidden" id="datepick_value" value="08.09.2023"/>
-                <CalendarPeriod>
-                    <CalendrDateControl>Срок исполнения: <DateControl>{selectedDate}</DateControl></CalendrDateControl>
-                </CalendarPeriod>
-            </CalendarBlock>
+                </CalendarContent>*/}
+            <input type="hidden" id="datepick_value" value={formatedDate}/>
+            <CalendarPeriod>
+                {
+                    !formatedDate
+                        ? <CalendrDateControl>Выберите дату в календаре</CalendrDateControl>
+
+                        : <CalendrDateControl>
+                            Срок исполнения: <DateControl>{formatedDate}</DateControl>
+                        </CalendrDateControl>
+                }
+            </CalendarPeriod>
         </CalendarContainer>
     );
 }

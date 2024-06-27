@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {Link} from "react-router-dom";
 
 
 export const Header = styled.header`
@@ -38,6 +39,8 @@ export const HeaderNav = styled.nav`
     align-items: center;
     justify-content: center;
 `;
+
+export const HeaderLinkNewCard = styled.button``
 
 export const HeaderUser = styled.button`
     height: 20px;

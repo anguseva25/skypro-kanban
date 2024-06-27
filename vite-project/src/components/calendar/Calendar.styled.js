@@ -1,4 +1,5 @@
 import styled, {css} from "styled-components";
+import {DayPicker} from "react-day-picker";
 
 
 export const CalendarContainer = styled.div`
@@ -102,3 +103,10 @@ export const DateControl = styled.span`
     font-size: 10px;
     line-height: 1;
 `;
+
+export const Calendarier = styled(DayPicker)`
+--rdp-cell-size: 22px;
+font-size: 10px;
+--rdp-caption-font-size: 14px;
+color: #94A68E;
+`

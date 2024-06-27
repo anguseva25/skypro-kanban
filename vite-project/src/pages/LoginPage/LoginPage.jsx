@@ -1,5 +1,5 @@
 import {Wrapper} from "../../global.styled";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {paths} from "../../routesPath";
 import {
     BlockRegistration,
@@ -9,14 +9,15 @@ import {
     ModalFormLogin,
     ModalFormLoginInput, ModalTittle,
 } from "./LoginPage.styled.js";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {signIn} from "../../API/auth.js";
 import {AlertMsg} from "../RegisterPage/RegisterPage.styled.js";
+import {UserContext} from "../../context/userContext.jsx";
 
 
-export const LoginPage = ({setIsAuth}) => {
-    const navigate = useNavigate();
+export const LoginPage = () => {
     const [errorMessage, setErrorMessage] = useState('');
+    const {loginUser} = useContext(UserContext);
 
     const [inputValue, setInputValue] = useState({
         login: '',
@@ -37,9 +38,7 @@ export const LoginPage = ({setIsAuth}) => {
 
             signIn(inputValue).then((res) => {
                 setErrorMessage('')
-                setIsAuth(res.user);
-                localStorage.setItem('user', JSON.stringify(res.user));
-                navigate(paths.MAIN)
+                loginUser(res)
             } ).catch((error) => {
                 setErrorMessage(error.message)
             })

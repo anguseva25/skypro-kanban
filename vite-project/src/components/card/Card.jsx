@@ -3,13 +3,13 @@ import {CardBtn, CardBtnDiv, CardContent, CardDate, CardGroup, CardsItem} from "
 import {Link} from "react-router-dom";
 
 
-const Card =({cardId, topic, title, date}) => {
-    const colorIndicator = {
-        "Web Design": "orange",
-        "Copywriting": "purple",
-        "Research": "green",
-    }
+export const colorIndicator = {
+    "Web Design": "orange",
+    "Copywriting": "purple",
+    "Research": "green",
+}
 
+const Card =({cardId, topic, title, date}) => {
     {/*const colorClass = colorIndicator[topic] || "";
     console.log(colorClass)*/}
 
@@ -17,8 +17,8 @@ const Card =({cardId, topic, title, date}) => {
         <CardsItem>
             <S.CardContainer>
                 <CardGroup>
-                    <S.CardTopic $color = {colorIndicator[topic]}>
-                        <S.TopicText>{topic} {cardId}</S.TopicText>
+                    <S.CardTopic $color={colorIndicator[topic]}>
+                        <S.TopicText>{topic}</S.TopicText>
                     </S.CardTopic>
                     <Link to={`/card/${cardId}`}>
                         <CardBtn>
@@ -50,7 +50,7 @@ const Card =({cardId, topic, title, date}) => {
                                 </clipPath>
                             </defs>
                         </svg>
-                        <p>{date}</p>
+                        <p>{new Date(date).toLocaleDateString("ru-RU")}</p>
                     </CardDate>
                 </CardContent>
             </S.CardContainer>

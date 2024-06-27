@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {cardList} from "../../data";
 import {Wrapper} from "../../global.styled";
 import PopNewCard from "../../components/popNewCard/popNewCard";
@@ -6,29 +6,20 @@ import Header from "../../components/header/header";
 import Main from "../../components/Main/Main";
 import {Outlet} from "react-router-dom";
 import {getCards} from "../../API/cardsAPI.js";
+import {UserContext} from "../../context/userContext.jsx";
+import {CardContext} from "../../context/cardContext.jsx";
 
 
-export const MainPage = ({darkTheme, setDarkTheme, isAuth}) => {
+export const MainPage = ({darkTheme, setDarkTheme}) => {
     const [isLoading, setLoading] = useState(true);
     const [errorMesg, setErrorMesg] = useState(false);
-    const [cards, setCards] = useState(cardList);
-
-    const addNewCard = () => {
-        // const newCard = {
-        //     id: Date.now(),
-        //     title: "my Test",
-        //     topic: "Research",
-        //     date: "12.05.2024",
-        //     status: "Без статуса",
-        // }
-        // const newCardList = [...cards, newCard];
-        // setCards(newCardList);
-    };
+    const {cards, setCards} = useContext(CardContext);
+    const {user} = useContext(UserContext)
 
     useEffect(() => {
         setLoading(true)
 
-        getCards(isAuth.token).then((res) => {
+        getCards(user.token).then((res) => {
             setErrorMesg('')
             setCards(res.tasks);
         }).catch((err) => {
@@ -36,16 +27,15 @@ export const MainPage = ({darkTheme, setDarkTheme, isAuth}) => {
         }).finally(() => {
             setLoading(false);
         })
-        setTimeout(() => {
+        {/*setTimeout(() => {
             setLoading(false)
-        }, 2000)
+        }, 2000)*/}
     }, []);
 
     return (
         <Wrapper>
-            <PopNewCard/>
             {/*<PopBrowse/>*/}
-            <Header isAuth={isAuth} setDarkTheme={setDarkTheme} darkTheme={darkTheme} setCards={setCards} addNewCard={addNewCard}/>
+            <Header user={user} setDarkTheme={setDarkTheme} darkTheme={darkTheme} setCards={setCards}/>
             <Main errorMesg={errorMesg} isLoading={isLoading} cardList={cards}/>
             <Outlet/>
         </Wrapper>)

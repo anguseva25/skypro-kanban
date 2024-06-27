@@ -42,6 +42,10 @@ export const Button = styled.button`
     margin-right: 10px;
 
     ${hover03}
+    
+    a, a:visited {
+        color: inherit;
+    }
 `;
 
 export const Container = styled.div`
@@ -50,3 +54,21 @@ export const Container = styled.div`
     margin: 0 auto;
     padding: 0 30px;
 `
+
+export const colour = {
+    orange: `background-color: #FFE4C2;
+             color: #FF6D00;`,
+    purple: `background-color: #E9D4FF;
+             color: #9A48F1;`,
+    green: `background-color: #B4FDD1;
+            color: #06B16E;`
+}
+
+export const colourDarkTheme = {
+    orange: `background-color: #FF6D00;
+             color: #FFE4C2;`,
+    purple: `background-color: #9A48F1;
+             color: #E9D4FF;`,
+    green: `background-color: #06B16E;
+            color: #B4FDD1;`
+}
