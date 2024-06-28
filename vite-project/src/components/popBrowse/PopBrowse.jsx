@@ -6,6 +6,23 @@ import {CardContext} from "../../context/cardContext";
 import {colorIndicator} from "../card/Card.jsx";
 import {deleteCard} from "../../API/cardsAPI.js";
 import {UserContext} from "../../context/userContext.jsx";
+import {
+    CategoriesTheme,
+    PopBrowseBlock,
+    PopBrowseCnt,
+    PopBrowseContent,
+    PopBrowseMain, PopBrowseStatus,
+    PopBrowseTopBlock,
+    PopBrowseTtl, StatusTheme
+} from "./PopBrowse.styled.js";
+import {
+    Categorie,
+    Categories,
+    ColorLabelInTasks,
+    LabelNewTask,
+    RadioInput,
+    WrapperRadio
+} from "../popNewCard/PopNewCard.styled.js";
 
 
 const PopBrowse = () => {
@@ -23,6 +40,7 @@ const PopBrowse = () => {
         date: new Date(),
         status: "",
         color: "",
+        correctionMode: false,
     })
 
     useEffect(() => {
@@ -45,6 +63,29 @@ const PopBrowse = () => {
         })
     }, [cards])
 
+    const onChangeRadio = (e) => {
+        setInputValue({
+            ...inputValue,
+            topic: e.target.value,
+        })
+    }
+
+    function handleCorrectMode(e) {
+        console.log('coucou')
+        setInputValue({
+            ...inputValue,
+            correctionMode: true,
+        })
+    }
+
+    function handleCorrectionCancel(e) {
+        setInputValue({
+            ...inputValue,
+            correctionMode: false,
+        })
+
+    }
+
     function handleDelete() {
         setError('')
 
@@ -59,46 +100,76 @@ const PopBrowse = () => {
     }
 
     return (
-        <div className="pop-browse" id="popBrowse">
-            <div className="pop-browse__container">
-                <div className="pop-browse__block">
-                    <div className="pop-browse__content">
-                        <div className="pop-browse__top-block">
-                            <h3 className="pop-browse__ttl">{inputValue.title}</h3>
-                            <div className="categories__theme theme-top _orange _active-category">
-                                <p className="_orange">{inputValue.topic}</p>
-                            </div>
-                        </div>
+        <PopBrowseMain>
+            <PopBrowseCnt>
+                <PopBrowseBlock>
+                    <PopBrowseContent>
+                        <PopBrowseTopBlock>
+                            <PopBrowseTtl>{inputValue.title}</PopBrowseTtl>
+
+                            {
+                                inputValue.correctionMode ||
+                                <CategoriesTheme $color={colorIndicator[inputValue.topic]}>
+                                    <p className="_orange">{inputValue.topic}</p>
+                                </CategoriesTheme>
+                            }
+                        </PopBrowseTopBlock>
                         <div className="pop-browse__status status">
-                            <p className="status__p subttl">Статус</p>
-                            <div className="status__themes">
+                            <PopBrowseStatus>Статус</PopBrowseStatus>
+                            <StatusTheme>
                                 <div className="status__theme _gray">
                                     <p className="_gray">{inputValue.status}</p>
                                 </div>
-                            </div>
+                            </StatusTheme>
                         </div>
                         <div className="pop-browse__wrap">
                             <form className="pop-browse__form form-browse" id="formBrowseCard" action="#">
                                 <div className="form-browse__block">
-                                    <label htmlFor="textArea01" className="subttl">Описание задачи</label>
+                                    <PopBrowseStatus>Описание задачи</PopBrowseStatus>
                                     <textarea className="form-browse__area" name="text" id="textArea01" readOnly
                                               placeholder="Введите описание задачи..." defaultValue={inputValue.description} />
                                 </div>
                             </form>
                             <Calendar date={inputValue.date} />
                         </div>
-                        <div className="theme-down__categories theme-down">
-                            <p className="categories__p subttl">Категория</p>
-                            <div className="categories__theme _orange _active-category">
-                                <p className="_orange">Web Design</p>
-                            </div>
-                        </div>
+                        {
+                            inputValue.correctionMode &&
+                            <Categories>
+                                <Categorie>Категория</Categorie>
+                                <CategoriesTheme>
+                                    <WrapperRadio $isActive={inputValue.topic === 'Web Design'}
+                                                  className="categories__theme5 _orange _active-category9">
+                                        <ColorLabelInTasks htmlFor="radio1" $color={"orange"}>Web Design</ColorLabelInTasks>
+                                        <RadioInput onChange={onChangeRadio} className="_orange"
+                                                    type="radio" name="try" id="radio1" value={"Web Design"}/>
+                                    </WrapperRadio>
+                                    <WrapperRadio $isActive={inputValue.topic === 'Research'} className="categories__theme5 _green">
+                                        <ColorLabelInTasks htmlFor="radio2" $color={"green"}>Research</ColorLabelInTasks>
+                                        <RadioInput onChange={onChangeRadio} className="_green"
+                                                    type="radio" name="try" id="radio2" value={"Research"}/>
+                                    </WrapperRadio>
+                                    <WrapperRadio $isActive={inputValue.topic === 'Copywriting'} className="categories__theme5 _purple">
+                                        <ColorLabelInTasks htmlFor="radio3" $color={"purple"}>Copywriting</ColorLabelInTasks>
+                                        <RadioInput onChange={onChangeRadio} className="_purple"
+                                                    type="radio" name="try" id="radio3" value={"Copywriting"}/>
+                                    </WrapperRadio>
+                                </CategoriesTheme>
+                            </Categories>
+                        }
                         {error && error}
                         <div className="pop-browse__btn-browse ">
                             <div className="btn-group">
-                                <button className="btn-browse__edit _btn-bor _hover03"><a href="#">Редактировать
-                                    задачу</a></button>
-                                <button className="btn-browse__delete _btn-bor _hover03" onClick={handleDelete}>Удалить задачу</button>
+                                {
+                                    !inputValue.correctionMode
+                                        ? <button className="btn-browse__edit _btn-bor _hover03" onClick={handleCorrectMode}>Редактировать задачу</button>
+                                        : <>
+                                            <button className="btn-edit__edit _btn-bg _hover01" onClick={handleCorrectMode}>Сохранить</button>
+                                            <button className="btn-edit__edit _btn-bor _hover03" onClick={handleCorrectionCancel}>Отменить</button>
+                                        </>
+                                }
+                                <button className="btn-browse__delete _btn-bor _hover03" onClick={handleDelete}>Удалить
+                                    задачу
+                                </button>
                             </div>
                             <button className="btn-browse__close _btn-bg _hover01" onClick={() => navigate(paths.MAIN)}>Закрыть</button>
                         </div>
@@ -110,10 +181,10 @@ const PopBrowse = () => {
                             </div>
                             <button className="btn-edit__close _btn-bg _hover01" onClick={() => navigate(paths.MAIN)}>Закрыть</button>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    </PopBrowseContent>
+                </PopBrowseBlock>
+            </PopBrowseCnt>
+        </PopBrowseMain>
     )
 };
 
