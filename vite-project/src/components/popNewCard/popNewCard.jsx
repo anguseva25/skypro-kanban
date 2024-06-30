@@ -16,7 +16,7 @@ import {
 import {useContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {paths} from "../../routesPath.js";
-import {addNewCard, deleteCard} from "../../API/cardsAPI.js";
+import {addNewCard} from "../../API/cardsAPI.js";
 import {UserContext} from "../../context/userContext.jsx";
 import {CardContext} from "../../context/cardContext.jsx";
 
@@ -45,7 +45,10 @@ export const PopNewCard = () => {
 
     const onChangeInput = (e) => {
         const {value, name} = e.target;
-        setInputValue({...inputValue, [name]: value});
+        setInputValue({
+            ...inputValue,
+            [name]: value
+        });
     }
 
     const onChangeRadio = (e) => {
@@ -108,7 +111,7 @@ export const PopNewCard = () => {
                                     <LabelNewTask htmlFor="textArea" className="subttl">Описание задачи</LabelNewTask>
                                     <TextArea onChange={onChangeInput} className="form-new__area7" name="description"
                                               id="textArea"
-                                              placeholder="Введите описание задачи..."></TextArea>
+                                              placeholder="Введите описание задачи..." />
                                 </PopNewCardFormBlock>
                             </PopNewCardFormNew>
                             <Calendar date={date} setDate={setDate} />

@@ -1,7 +1,5 @@
 import {useContext, useEffect, useState} from "react";
-import {cardList} from "../../data";
 import {Wrapper} from "../../global.styled";
-import PopNewCard from "../../components/popNewCard/popNewCard";
 import Header from "../../components/header/header";
 import Main from "../../components/Main/Main";
 import {Outlet} from "react-router-dom";
@@ -37,6 +35,7 @@ export const MainPage = ({darkTheme, setDarkTheme}) => {
             {/*<PopBrowse/>*/}
             <Header user={user} setDarkTheme={setDarkTheme} darkTheme={darkTheme} setCards={setCards}/>
             <Main errorMesg={errorMesg} isLoading={isLoading} cardList={cards}/>
+            {/* Main({errorMesg: errorMesg, isLoading: isLoading, cardList: cards}) */}
             <Outlet/>
         </Wrapper>)
 }
