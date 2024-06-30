@@ -33,7 +33,8 @@ export const CardTopic = styled.div`
     height: 20px;
     padding: 5px 14px;
     border-radius: 18px;
-    ${(props) => (props.theme.darkStyle ? colourDarkTheme : colour)[props.$color]}
+    
+    ${(props) => (props.theme.darkStyle ? colourDarkTheme : colour)[props.$color]};
     
     p {
         font-size: 10px;
