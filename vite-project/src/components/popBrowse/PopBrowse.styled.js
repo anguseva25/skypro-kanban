@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Button, colorGray, colour, colourDarkTheme} from "../shared.styled.js";
+import {Button, colorGray, colour, colourDarkTheme} from "../../styled files/shared.styled.js";
 
 
 export const PopBrowseMain = styled.div`
@@ -115,7 +115,7 @@ export const CategoriesTheme = styled.div`
     display: inline-block;
     width: auto;
     height: 30px;
-    padding: 8px 20px;
+    padding: 6px 20px;
     border-radius: 24px;
     margin-right: 7px;
     //opacity: 0.4;

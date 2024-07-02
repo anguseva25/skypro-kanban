@@ -1,7 +1,7 @@
 import {useContext, useEffect, useState} from "react";
-import {Wrapper} from "../../global.styled";
+import {Wrapper} from "../../styled files/global.styled.js";
 import Header from "../../components/header/header";
-import Main from "../../components/Main/Main";
+import Main from "../../components/main/Main";
 import {Outlet} from "react-router-dom";
 import {getCards} from "../../API/cardsAPI.js";
 import {UserContext} from "../../context/userContext.jsx";
@@ -35,7 +35,7 @@ export const MainPage = ({darkTheme, setDarkTheme}) => {
             {/*<PopBrowse/>*/}
             <Header user={user} setDarkTheme={setDarkTheme} darkTheme={darkTheme} setCards={setCards}/>
             <Main errorMesg={errorMesg} isLoading={isLoading} cardList={cards}/>
-            {/* Main({errorMesg: errorMesg, isLoading: isLoading, cardList: cards}) */}
+            {/* main({errorMesg: errorMesg, isLoading: isLoading, cardList: cards}) */}
             <Outlet/>
         </Wrapper>)
 }

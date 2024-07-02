@@ -1,7 +1,7 @@
 import Column from '../column/Column';
-import Loader from "../Loader/Loader";
+import Loader from "../loader/Loader";
 import {MainBlock, MainContent, MainStyleTotal} from "./Main.styled"
-import {Container} from "../shared.styled";
+import {Container} from "../../styled files/shared.styled.js";
 
 
 export const statusList = [

@@ -4,7 +4,7 @@ import {LoginPage} from "./pages/LoginPage/LoginPage";
 import {RegisterPage} from "./pages/RegisterPage/RegisterPage";
 import {paths} from "./routesPath";
 import PrivateRoute from "./components/PrivateRoute";
-import {NotFoundPage} from "./pages/unfoundPage/NotFoundPage";
+import {NotFoundPage} from "./pages/UnfoundPage/NotFoundPage";
 import {PopBrowsePage} from "./pages/Popups/PopBrowse/PopBrowsePage";
 import {PopExitPage} from "./pages/Popups/PopExit/PopExitPage";
 import PopNewCard from "./components/popNewCard/popNewCard.jsx";

@@ -23,7 +23,7 @@ import {
     RadioInput,
     WrapperRadio
 } from "../popNewCard/PopNewCard.styled.js";
-import {statusList} from "../Main/Main.jsx";
+import {statusList} from "../main/Main.jsx";
 
 
 const PopBrowse = () => {
@@ -111,7 +111,10 @@ const PopBrowse = () => {
     }
 
     function handleCorrect() {
-        setError('')
+
+        if (!inputValue.description) {
+            return setError('Введите описание задачи')
+        }
 
         saveCorrection({id, newData: inputValue, token: user.token})
             .then((res) => {
@@ -124,6 +127,7 @@ const PopBrowse = () => {
             .catch((err) => {
                 setError(err.message)
             })
+
     }
 
     function handleDelete() {

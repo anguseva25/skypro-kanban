@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {colour, colourDarkTheme} from "../shared.styled";
+import {colour, colourDarkTheme} from "../../styled files/shared.styled.js";
 
 
 export const CardContainer = styled.div`

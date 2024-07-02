@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {Link} from "react-router-dom";
-import {colour, colourDarkTheme} from "../shared.styled.js";
+import {colour, colourDarkTheme} from "../../styled files/shared.styled.js";
 
 export const PopNewCardCommun = styled.div`
     display: block;

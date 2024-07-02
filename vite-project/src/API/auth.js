@@ -1,7 +1,7 @@
 const url = 'https://wedev-api.sky.pro/api/user';
 
 export const register = ({login, name, password}) => {
-    return fetch(url,{
+    return fetch(url, {
         method: 'POST',
         body: JSON.stringify({
             login: login,
@@ -10,7 +10,15 @@ export const register = ({login, name, password}) => {
         })
     })
         .then(res => {
-            if (res.status === 400) throw new Error("Некорректные данные");
+            if (res.status === 400) {
+                return res.json().then(error => {
+                    if (error.error === 'пользователь с таким логином уже существует') {
+                        throw new Error('пользователь с таким логином уже существует');
+                    } else if (error.error === 'ваш login должен содержать хотя бы 3 символа') {
+                        throw new Error('имя, эл.почта или пароль должны содержать хотя бы 3 символа');
+                    }
+                })
+            }
             if (res.status === 500) throw new Error("ошибка на сервере");
             if (!res.ok) throw new Error("Что-то я заплутал...");
 
@@ -19,7 +27,7 @@ export const register = ({login, name, password}) => {
 }
 
 export const signIn = ({login, password}) => {
-    return fetch(url + '/login',{
+    return fetch(url + '/login', {
         method: 'POST',
         body: JSON.stringify({
             login: login,
@@ -27,7 +35,7 @@ export const signIn = ({login, password}) => {
         })
     })
         .then(res => {
-            if (res.status === 400) throw new Error("Некорректные данные");
+            if (res.status === 400) throw new Error("такой пользователь не найден");
             if (res.status === 500) throw new Error("ошибка на сервере");
             if (!res.ok) throw new Error("Что-то я заплутал...");
 

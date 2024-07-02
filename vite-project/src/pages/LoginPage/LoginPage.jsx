@@ -1,4 +1,4 @@
-import {Wrapper} from "../../global.styled";
+import {Wrapper} from "../../styled files/global.styled.js";
 import {Link} from "react-router-dom";
 import {paths} from "../../routesPath";
 import {

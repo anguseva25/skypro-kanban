@@ -1,4 +1,4 @@
-import {Button} from "../shared.styled";
+import {Button} from "../../styled files/shared.styled.js";
 import {ExitHeader, PopExitBlock, PopExitCnt, PopExitFormGroup, PopExitTitle} from "./PopExit";
 import {Link, useNavigate} from "react-router-dom";
 import {paths} from "../../routesPath";

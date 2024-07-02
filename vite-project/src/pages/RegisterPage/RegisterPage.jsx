@@ -1,4 +1,4 @@
-import {Wrapper} from "../../global.styled";
+import {Wrapper} from "../../styled files/global.styled.js";
 import {Link, useNavigate} from "react-router-dom";
 import {paths} from "../../routesPath";
 import {
@@ -36,6 +36,9 @@ export const RegisterPage = () => {
         const {login, name, password} = inputValue;
         if (!login || !name || !password) {
            return setErrorMessage('Заполните все поля')
+        }
+        if(password.length < 3) {
+            return setErrorMessage('пароль должен содержать хотя бы 3 символа')
         }
 
         register(inputValue).then(() => {
