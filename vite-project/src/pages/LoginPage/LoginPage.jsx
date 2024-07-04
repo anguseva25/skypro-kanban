@@ -29,21 +29,25 @@ export const LoginPage = () => {
     }
 
     const loginHandler = (e) => {
-            e.preventDefault();
+        e.preventDefault();
 
-            const {login, password} = inputValue;
-            if (!login || !password) {
-                return setErrorMessage('Заполните все поля')
-            }
+        const {login, password} = inputValue;
+        if (!login || !password) {
+            return setErrorMessage('Заполните все поля')
+        }
+        if(password.length < 3) {
+            return setErrorMessage('пароль должен содержать хотя бы 3 символа')
+        }
 
-            signIn(inputValue).then((res) => {
+        signIn(inputValue)
+            .then((res) => {
                 setErrorMessage('')
                 loginUser(res)
-            } ).catch((error) => {
+            })
+            .catch((error) => {
                 setErrorMessage(error.message)
             })
-
-        }
+    }
 
     return (
         <Wrapper>

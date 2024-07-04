@@ -1,5 +1,5 @@
 import {Wrapper} from "../../styled files/global.styled.js";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {paths} from "../../routesPath";
 import {
     BlockRegistration,
@@ -12,13 +12,13 @@ import {
 } from "../LoginPage/LoginPage.styled.js";
 import {AlertMsg, ContainerSignUp} from "./RegisterPage.styled.js";
 import {register} from "../../API/auth.js";
-import {useState} from "react";
-import error from "eslint-plugin-react/lib/util/error.js";
+import {useContext, useState} from "react";
+import {UserContext} from "../../context/userContext.jsx";
 
 
 export const RegisterPage = () => {
-    const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
+    const {loginUser} = useContext(UserContext);
 
     const [inputValue, setInputValue] = useState({
         login: '',
@@ -41,13 +41,14 @@ export const RegisterPage = () => {
             return setErrorMessage('пароль должен содержать хотя бы 3 символа')
         }
 
-        register(inputValue).then(() => {
-            setErrorMessage('')
-            navigate(paths.LOGIN)
-        } ).catch((error) => {
-            setErrorMessage(error.message)
-        })
-
+        register(inputValue)
+            .then((res) => {
+                setErrorMessage('')
+                loginUser(res)
+            })
+            .catch((error) => {
+                setErrorMessage(error.message)
+            })
     }
 
     return (
