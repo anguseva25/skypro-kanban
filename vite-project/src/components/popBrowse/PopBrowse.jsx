@@ -166,9 +166,8 @@ const PopBrowse = () => {
                                         ? statusList.map((item, index) => {
                                             const id = `status-${index}`
                                             return (
-                                                <StatusTheme key={index} className="status__theme"
-                                                             $isActive={inputValue.status === item}>
-                                                    <StatusThemeLabel htmlFor={id}>{item}</StatusThemeLabel>
+                                                <StatusTheme key={index}>
+                                                    <StatusThemeLabel htmlFor={id} $isActive={inputValue.status === item}>{item}</StatusThemeLabel>
                                                     <RadioInput onChange={onChangeStatus} type="radio" name="status"
                                                                 id={id} value={item}/>
                                                 </StatusTheme>

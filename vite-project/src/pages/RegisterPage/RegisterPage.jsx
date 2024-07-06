@@ -64,7 +64,7 @@ export const RegisterPage = () => {
                         <ModalFormLoginInput onChange={onChangeValue} value ={inputValue.login} name = "login" placeholder="Эл. почта"/>
                         <ModalFormLoginInput onChange={onChangeValue} value ={inputValue.password} type="password" name = "password" placeholder="Пароль"/>
                         <AlertMsg>{errorMessage}</AlertMsg>
-                        <BtnEnter><BlockRegistration onClick={registerHandler}>Зарегистрироваться</BlockRegistration></BtnEnter>
+                        <BtnEnter onClick={registerHandler}>Зарегистрироваться</BtnEnter>
                         <BlockRegistration>
                             <p>Уже есть аккаунт? <Link to={paths.LOGIN}>Войдите здесь</Link></p>
                         </BlockRegistration>
