@@ -4,17 +4,34 @@ import Calendar from "../calendar/Calendar";
 import {paths} from "../../routesPath";
 import {CardContext} from "../../context/cardContext";
 import {colorIndicator} from "../card/Card.jsx";
-import {deleteCard} from "../../API/cardsAPI.js";
+import {deleteCard, saveCorrection} from "../../API/cardsAPI.js";
 import {UserContext} from "../../context/userContext.jsx";
+import {
+    BtnGroup,
+    CategoriesTheme,
+    PopBrowseBlock,
+    PopBrowseCnt,
+    PopBrowseContent, PopBrowseEdit, PopBrowseEditBtn,
+    PopBrowseMain, PopBrowseStatus,
+    PopBrowseTopBlock,
+    PopBrowseTtl, StatusTheme, StatusThemeLabel, StatusThemes, TextArea
+} from "./PopBrowse.styled.js";
+import {
+    Categorie,
+    Categories,
+    ColorLabelInTasks,
+    RadioInput,
+    WrapperRadio
+} from "../popNewCard/PopNewCard.styled.js";
+import {statusList} from "../main/Main.jsx";
 
 
 const PopBrowse = () => {
     const {user} = useContext(UserContext)
-    const {setCards} = useContext(CardContext)
+    const {cards, setCards} = useContext(CardContext)
 
     const { id } = useParams()
     const navigate = useNavigate()
-    const {cards} = useContext(CardContext)
     const [error, setError] = useState(null)
     const [inputValue, setInputValue] = useState({
         topic: "",
@@ -23,6 +40,7 @@ const PopBrowse = () => {
         date: new Date(),
         status: "",
         color: "",
+        correctionMode: false,
     })
 
     useEffect(() => {
@@ -45,6 +63,73 @@ const PopBrowse = () => {
         })
     }, [cards])
 
+    const onChangeRadio = (e) => {
+        setInputValue({
+            ...inputValue,
+            topic: e.target.value,
+        })
+    }
+
+    const onChangeStatus = (e) => {
+        setInputValue({
+            ...inputValue,
+            status: e.target.value,
+        })
+    }
+
+    const onChangeInput = (e) => {
+        const {value, name} = e.target;
+        setInputValue({
+            ...inputValue,
+            [name]: value
+        })
+    }
+
+    const onChangeDate = (freshDate) => {
+        if (!inputValue.correctionMode)
+            return
+
+        setInputValue({
+            ...inputValue,
+            date: freshDate,
+        })
+    }
+
+    function handleCorrectMode(e) {
+        setInputValue({
+            ...inputValue,
+            correctionMode: true,
+        })
+    }
+
+    function handleCorrectionCancel(e) {
+        setInputValue({
+            ...inputValue,
+            correctionMode: false,
+        })
+
+    }
+
+    function handleCorrect() {
+
+        if (!inputValue.description) {
+            return setError('Введите описание задачи')
+        }
+
+        saveCorrection({id, newData: inputValue, token: user.token})
+            .then((res) => {
+                setCards(res.tasks)
+                setInputValue({
+                    ...inputValue,
+                    correctionMode: false,
+                })
+            })
+            .catch((err) => {
+                setError(err.message)
+            })
+
+    }
+
     function handleDelete() {
         setError('')
 
@@ -59,61 +144,94 @@ const PopBrowse = () => {
     }
 
     return (
-        <div className="pop-browse" id="popBrowse">
-            <div className="pop-browse__container">
-                <div className="pop-browse__block">
-                    <div className="pop-browse__content">
-                        <div className="pop-browse__top-block">
-                            <h3 className="pop-browse__ttl">{inputValue.title}</h3>
-                            <div className="categories__theme theme-top _orange _active-category">
-                                <p className="_orange">{inputValue.topic}</p>
-                            </div>
-                        </div>
+        <PopBrowseMain>
+            <PopBrowseCnt>
+                <PopBrowseBlock>
+                    <PopBrowseContent>
+                        <PopBrowseTopBlock>
+                            <PopBrowseTtl>{inputValue.title}</PopBrowseTtl>
+
+                            {
+                                inputValue.correctionMode ||
+                                <CategoriesTheme $color={colorIndicator[inputValue.topic]}>
+                                    <p className="_orange">{inputValue.topic}</p>
+                                </CategoriesTheme>
+                            }
+                        </PopBrowseTopBlock>
                         <div className="pop-browse__status status">
-                            <p className="status__p subttl">Статус</p>
-                            <div className="status__themes">
-                                <div className="status__theme _gray">
-                                    <p className="_gray">{inputValue.status}</p>
-                                </div>
-                            </div>
+                            <PopBrowseStatus>Статус</PopBrowseStatus>
+                            <StatusThemes>
+                                {
+                                    inputValue.correctionMode
+                                        ? statusList.map((item, index) => {
+                                            const id = `status-${index}`
+                                            return (
+                                                <StatusTheme key={index}>
+                                                    <StatusThemeLabel htmlFor={id} $isActive={inputValue.status === item}>{item}</StatusThemeLabel>
+                                                    <RadioInput onChange={onChangeStatus} type="radio" name="status"
+                                                                id={id} value={item}/>
+                                                </StatusTheme>
+                                            )
+                                        })
+                                        : <StatusTheme className="status__theme _gray">
+                                            <p className="_gray">{inputValue.status}</p>
+                                        </StatusTheme>
+                                }
+                            </StatusThemes>
                         </div>
                         <div className="pop-browse__wrap">
-                            <form className="pop-browse__form form-browse" id="formBrowseCard" action="#">
+                        <form className="pop-browse__form form-browse" id="formBrowseCard" action="#">
                                 <div className="form-browse__block">
-                                    <label htmlFor="textArea01" className="subttl">Описание задачи</label>
-                                    <textarea className="form-browse__area" name="text" id="textArea01" readOnly
-                                              placeholder="Введите описание задачи..." defaultValue={inputValue.description} />
+                                    <PopBrowseStatus>Описание задачи</PopBrowseStatus>
+                                    <TextArea className="form-browse__area" name="description" id="textArea01" $readonly={!inputValue.correctionMode}
+                                              placeholder="Введите описание задачи..." value={inputValue.description} onChange={onChangeInput} />
                                 </div>
                             </form>
-                            <Calendar date={inputValue.date} />
+                            <Calendar date={inputValue.date} setDate={onChangeDate} />
                         </div>
-                        <div className="theme-down__categories theme-down">
-                            <p className="categories__p subttl">Категория</p>
-                            <div className="categories__theme _orange _active-category">
-                                <p className="_orange">Web Design</p>
-                            </div>
-                        </div>
+                        {
+                            inputValue.correctionMode &&
+                            <Categories>
+                                <Categorie>Категория</Categorie>
+                                <CategoriesTheme>
+                                    <WrapperRadio $isActive={inputValue.topic === 'Web Design'}
+                                                  className="categories__theme5 _orange _active-category9">
+                                        <ColorLabelInTasks htmlFor="radio1" $color={"orange"}>Web Design</ColorLabelInTasks>
+                                        <RadioInput onChange={onChangeRadio} className="_orange"
+                                                    type="radio" name="try" id="radio1" value={"Web Design"}/>
+                                    </WrapperRadio>
+                                    <WrapperRadio $isActive={inputValue.topic === 'Research'} className="categories__theme5 _green">
+                                        <ColorLabelInTasks htmlFor="radio2" $color={"green"}>Research</ColorLabelInTasks>
+                                        <RadioInput onChange={onChangeRadio} className="_green"
+                                                    type="radio" name="try" id="radio2" value={"Research"}/>
+                                    </WrapperRadio>
+                                    <WrapperRadio $isActive={inputValue.topic === 'Copywriting'} className="categories__theme5 _purple">
+                                        <ColorLabelInTasks htmlFor="radio3" $color={"purple"}>Copywriting</ColorLabelInTasks>
+                                        <RadioInput onChange={onChangeRadio} className="_purple"
+                                                    type="radio" name="try" id="radio3" value={"Copywriting"}/>
+                                    </WrapperRadio>
+                                </CategoriesTheme>
+                            </Categories>
+                        }
                         {error && error}
-                        <div className="pop-browse__btn-browse ">
-                            <div className="btn-group">
-                                <button className="btn-browse__edit _btn-bor _hover03"><a href="#">Редактировать
-                                    задачу</a></button>
-                                <button className="btn-browse__delete _btn-bor _hover03" onClick={handleDelete}>Удалить задачу</button>
-                            </div>
-                            <button className="btn-browse__close _btn-bg _hover01" onClick={() => navigate(paths.MAIN)}>Закрыть</button>
-                        </div>
-                        <div className="pop-browse__btn-edit _hide">
-                            <div className="btn-group">
-                                <button className="btn-edit__edit _btn-bg _hover01"><a href="#">Сохранить</a></button>
-                                <button className="btn-edit__edit _btn-bor _hover03"><a href="#">Отменить</a></button>
-                                <button className="btn-edit__delete _btn-bor _hover03" id="btnDelete" onClick={handleDelete}>Удалить задачу</button>
-                            </div>
-                            <button className="btn-edit__close _btn-bg _hover01" onClick={() => navigate(paths.MAIN)}>Закрыть</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                        <PopBrowseEdit>
+                            <BtnGroup>
+                                {
+                                    !inputValue.correctionMode
+                                        ? <PopBrowseEditBtn className="btn-browse__edit _btn-bor _hover03" onClick={handleCorrectMode}>Редактировать задачу</PopBrowseEditBtn>
+                                        : <>
+                                            <PopBrowseEditBtn $primary={true} className="btn-edit__edit _btn-bg _hover01" onClick={handleCorrect}>Сохранить</PopBrowseEditBtn>
+                                            <PopBrowseEditBtn className="btn-edit__edit _btn-bor _hover03" onClick={handleCorrectionCancel}>Отменить</PopBrowseEditBtn>
+                                        </>
+                                }
+                                <PopBrowseEditBtn className="btn-browse__delete _btn-bor _hover03" onClick={handleDelete}>Удалить задачу</PopBrowseEditBtn>
+                            </BtnGroup>
+                            <PopBrowseEditBtn $primary={true} className="btn-browse__close _btn-bg _hover01" onClick={() => navigate(paths.MAIN)}>Закрыть</PopBrowseEditBtn>
+                        </PopBrowseEdit>
+                    </PopBrowseContent>
+                </PopBrowseBlock>
+            </PopBrowseCnt>
+        </PopBrowseMain>
     )
 };
 

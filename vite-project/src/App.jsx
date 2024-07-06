@@ -1,8 +1,8 @@
-import './App.css'
+import './styled files/App.css'
 import {useState} from "react";
-import {GlobalStyle} from "./global.styled";
+import {GlobalStyle} from "./styled files/global.styled.js";
 import {ThemeProvider} from "styled-components";
-import * as Themes from "./themeStyle.styled";
+import * as Themes from "./styled files/themeStyle.styled.js";
 import {AppRoutes} from "./AppRoutes";
 
 

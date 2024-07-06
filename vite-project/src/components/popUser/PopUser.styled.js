@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {hover03} from "../shared.styled";
+import {hover03} from "../../styled files/shared.styled.js";
 
 
 export const HeaderPopUser = styled.div`

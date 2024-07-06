@@ -1,5 +1,5 @@
-import {Wrapper} from "../../global.styled";
-import {Link, useNavigate} from "react-router-dom";
+import {Wrapper} from "../../styled files/global.styled.js";
+import {Link} from "react-router-dom";
 import {paths} from "../../routesPath";
 import {
     BlockRegistration,
@@ -12,13 +12,13 @@ import {
 } from "../LoginPage/LoginPage.styled.js";
 import {AlertMsg, ContainerSignUp} from "./RegisterPage.styled.js";
 import {register} from "../../API/auth.js";
-import {useState} from "react";
-import error from "eslint-plugin-react/lib/util/error.js";
+import {useContext, useState} from "react";
+import {UserContext} from "../../context/userContext.jsx";
 
 
 export const RegisterPage = () => {
-    const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
+    const {loginUser} = useContext(UserContext);
 
     const [inputValue, setInputValue] = useState({
         login: '',
@@ -37,14 +37,18 @@ export const RegisterPage = () => {
         if (!login || !name || !password) {
            return setErrorMessage('Заполните все поля')
         }
+        if(password.length < 3) {
+            return setErrorMessage('пароль должен содержать хотя бы 3 символа')
+        }
 
-        register(inputValue).then(() => {
-            setErrorMessage('')
-            navigate(paths.LOGIN)
-        } ).catch((error) => {
-            setErrorMessage(error.message)
-        })
-
+        register(inputValue)
+            .then((res) => {
+                setErrorMessage('')
+                loginUser(res)
+            })
+            .catch((error) => {
+                setErrorMessage(error.message)
+            })
     }
 
     return (
@@ -60,7 +64,7 @@ export const RegisterPage = () => {
                         <ModalFormLoginInput onChange={onChangeValue} value ={inputValue.login} name = "login" placeholder="Эл. почта"/>
                         <ModalFormLoginInput onChange={onChangeValue} value ={inputValue.password} type="password" name = "password" placeholder="Пароль"/>
                         <AlertMsg>{errorMessage}</AlertMsg>
-                        <BtnEnter><BlockRegistration onClick={registerHandler}>Зарегистрироваться</BlockRegistration></BtnEnter>
+                        <BtnEnter onClick={registerHandler}>Зарегистрироваться</BtnEnter>
                         <BlockRegistration>
                             <p>Уже есть аккаунт? <Link to={paths.LOGIN}>Войдите здесь</Link></p>
                         </BlockRegistration>

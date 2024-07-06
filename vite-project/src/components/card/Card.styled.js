@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {colour, colourDarkTheme} from "../shared.styled";
+import {colour, colourDarkTheme} from "../../styled files/shared.styled.js";
 
 
 export const CardContainer = styled.div`
@@ -33,7 +33,8 @@ export const CardTopic = styled.div`
     height: 20px;
     padding: 5px 14px;
     border-radius: 18px;
-    ${(props) => (props.theme.darkStyle ? colourDarkTheme : colour)[props.$color]}
+    
+    ${(props) => (props.theme.darkStyle ? colourDarkTheme : colour)[props.$color]};
     
     p {
         font-size: 10px;

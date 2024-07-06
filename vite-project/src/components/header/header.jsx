@@ -1,7 +1,7 @@
 import PopUser from "../popUser/PopUser";
 import {useState} from "react";
 import * as S from "./Header.styled"
-import {Container} from "../shared.styled";
+import {Container} from "../../styled files/shared.styled.js";
 import {paths} from "../../routesPath.js";
 import {useNavigate} from "react-router-dom";
 

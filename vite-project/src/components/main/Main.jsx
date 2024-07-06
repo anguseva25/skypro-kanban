@@ -1,11 +1,10 @@
 import Column from '../column/Column';
-import {useEffect, useState} from "react";
-import Loader from "../Loader/Loader";
+import Loader from "../loader/Loader";
 import {MainBlock, MainContent, MainStyleTotal} from "./Main.styled"
-import {Container} from "../shared.styled";
+import {Container} from "../../styled files/shared.styled.js";
 
 
-const statusList = [
+export const statusList = [
     "Без статуса",
     "Нужно сделать",
     "В работе",
@@ -13,15 +12,7 @@ const statusList = [
     "Готово",
 ];
 
-const Main = ({cardList, errorMesg}) => {
-    const [isLoading, setLoading] = useState(true);
-
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false)
-        }, 2000)
-    }, []);
-
+const Main = ({cardList, isLoading, errorMesg}) => {
     return (
         <MainStyleTotal>
             <Container>
